@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ProjectCard from "./components/ProjectCard";
 
 export default function PortfolioPage() {
   const nav = [
@@ -64,19 +65,23 @@ export default function PortfolioPage() {
       summary:
         "A modern cafe landing page built using Framer with integrated booking system.",
       cta: "View Demo",
+      image: "/projects/coffee-house.png",
+      url: "/coffee-house",
     },
     {
       name: "Portfolio Builder",
       tag: "React • Tailwind",
       summary:
         "A fast, minimal personal portfolio generator built for freelancers.",
-      cta: "View Demo",
+      cta: "View Repo",
+      url: "https://github.com/youniscode/portfolio-builder",
     },
     {
       name: "AI Form Assistant",
       tag: "Automation • AI",
       summary: "Automates form processing using ChatGPT + Make workflows.",
       cta: "View Demo",
+      url: "https://your-demo-url-3.com",
     },
   ];
 
@@ -172,23 +177,7 @@ export default function PortfolioPage() {
             <h2 className="text-3xl font-semibold mb-8">Selected Work</h2>
             <div className="grid gap-6 md:grid-cols-3">
               {projects.map((p) => (
-                <div
-                  key={p.name}
-                  className="border border-slate-800 rounded-2xl p-5 bg-slate-950 hover:border-indigo-600 transition"
-                >
-                  <div className="aspect-video bg-slate-800 rounded-xl grid place-items-center text-3xl">
-                    🧩
-                  </div>
-                  <div className="text-xs text-slate-500 mt-3">{p.tag}</div>
-                  <div className="text-lg font-semibold mt-1">{p.name}</div>
-                  <p className="text-slate-400 mt-2 text-sm">{p.summary}</p>
-                  <a
-                    href="#"
-                    className="text-indigo-400 text-sm font-medium mt-3 inline-block hover:underline"
-                  >
-                    {p.cta} →
-                  </a>
-                </div>
+                <ProjectCard key={p.name} {...p} />
               ))}
             </div>
           </div>

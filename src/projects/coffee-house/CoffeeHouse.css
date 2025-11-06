@@ -1,0 +1,7 @@
+.coffee-house-page {
+    font-family: "Inter", sans-serif;
+    background-image: url("/projects/coffee-bg.webp");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+}
