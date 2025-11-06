@@ -66,7 +66,7 @@ export default function PortfolioPage() {
         "A modern cafe landing page built using Framer with integrated booking system.",
       cta: "View Demo",
       image: "/projects/coffee-house.png",
-      url: "/coffee-house",
+      url: "/coffee-house", // internal route -> handled by <Link>
     },
     {
       name: "Portfolio Builder",
