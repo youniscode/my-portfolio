@@ -13,6 +13,7 @@ export default function PortfolioBuilder() {
     linkedin: "https://linkedin.com/in/yourname",
   });
 
+  const [theme, setTheme] = useState("dark"); // new state for theme
   const previewRef = useRef(null);
 
   const handle = (e) => {
@@ -20,7 +21,6 @@ export default function PortfolioBuilder() {
     setForm((f) => ({ ...f, [name]: value }));
   };
 
-  // very small sanitizer for links
   const links = useMemo(() => {
     const safe = (url) => (url?.startsWith("http") ? url : "");
     return {
@@ -30,37 +30,50 @@ export default function PortfolioBuilder() {
     };
   }, [form]);
 
+  // Theme styling logic
+  const themes = {
+    dark: {
+      bg: "bg-slate-950",
+      text: "text-slate-100",
+      border: "border-slate-800",
+      accent: "text-indigo-400",
+      muted: "text-slate-400",
+      card: "bg-slate-900 border border-slate-800",
+      link: "text-indigo-400",
+    },
+    light: {
+      bg: "bg-gray-50",
+      text: "text-gray-800",
+      border: "border-gray-200",
+      accent: "text-indigo-700",
+      muted: "text-gray-500",
+      card: "bg-white border border-gray-200",
+      link: "text-indigo-600",
+    },
+    accent: {
+      bg: "bg-indigo-950",
+      text: "text-indigo-50",
+      border: "border-indigo-900",
+      accent: "text-indigo-300",
+      muted: "text-indigo-200",
+      card: "bg-indigo-900 border border-indigo-800",
+      link: "text-indigo-300",
+    },
+  };
+
+  const t = themes[theme];
+
   const copyHtml = async () => {
     const node = previewRef.current;
     if (!node) return;
-    const html =
-      `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">` +
-      `<title>${form.name} – ${form.role}</title>` +
-      // Minimal inline styles so the export stands alone
-      `<style>
-        :root{color-scheme:dark}
-        body{margin:0;background:#0b1220;color:#e5e7eb;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
-        .wrap{max-width:800px;margin:48px auto;padding:0 20px}
-        .tag{display:inline-block;border:1px solid #334155;background:#0f172a;color:#94a3b8;padding:6px 10px;border-radius:9999px;font-size:12px}
-        .title{font-size:36px;font-weight:700;margin:18px 0}
-        .muted{color:#94a3b8;line-height:1.6}
-        .links a{display:inline-block;margin-right:12px;color:#60a5fa;text-decoration:none}
-        .card{border:1px solid #1f2937;background:#0b1324;border-radius:16px;padding:18px}
-      </style></head><body>` +
-      `<div class="wrap">${node.innerHTML}</div></body></html>`;
-    await navigator.clipboard.writeText(html);
-    alert("HTML copied to clipboard");
+    await navigator.clipboard.writeText(node.outerHTML);
+    alert("HTML copied to clipboard!");
   };
 
   const downloadHtml = () => {
     const node = previewRef.current;
     if (!node) return;
-    const blob = new Blob(
-      [
-        `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${form.name} – ${form.role}</title></head><body>${node.outerHTML}</body></html>`,
-      ],
-      { type: "text/html" }
-    );
+    const blob = new Blob([node.outerHTML], { type: "text/html" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = "portfolio.html";
@@ -79,6 +92,20 @@ export default function PortfolioBuilder() {
         <p className="text-slate-400 mt-1">
           Fill a few fields → preview a one-page portfolio instantly.
         </p>
+
+        {/* Theme Selector */}
+        <div className="mt-4">
+          <label className="text-sm text-slate-400 mr-3">Choose Theme:</label>
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="accent">Accent</option>
+          </select>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-8 mt-8">
           {/* Form */}
@@ -148,26 +175,56 @@ export default function PortfolioBuilder() {
           </div>
 
           {/* Preview */}
-          <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
-            <div ref={previewRef}>
-              <span className="tag">Portfolio</span>
-              <h2 className="title">{form.name}</h2>
-              <div className="text-indigo-300 font-medium">{form.role}</div>
-              <p className="muted mt-3">{form.tagline}</p>
+          <div
+            className={`${t.bg} ${t.text} rounded-2xl p-5 border ${t.border} transition-colors`}
+            ref={previewRef}
+          >
+            <span className={`text-xs uppercase font-medium ${t.accent}`}>
+              Portfolio
+            </span>
+            <h2 className="text-3xl font-bold mt-3">{form.name}</h2>
+            <div className={`font-medium ${t.accent}`}>{form.role}</div>
+            <p className={`${t.muted} mt-3`}>{form.tagline}</p>
 
-              <div className="card mt-6">
-                <h3 style={{ margin: "0 0 8px", fontWeight: 600 }}>About</h3>
-                <p className="muted">{form.bio}</p>
-              </div>
-
-              {(links.website || links.github || links.linkedin) && (
-                <div className="links mt-6">
-                  {links.website && <a href={links.website}>Website</a>}
-                  {links.github && <a href={links.github}>GitHub</a>}
-                  {links.linkedin && <a href={links.linkedin}>LinkedIn</a>}
-                </div>
-              )}
+            <div className={`${t.card} rounded-xl p-4 mt-6`}>
+              <h3 className="font-semibold mb-2">About</h3>
+              <p className={`${t.muted}`}>{form.bio}</p>
             </div>
+
+            {(links.website || links.github || links.linkedin) && (
+              <div className="mt-6 space-x-4 text-sm">
+                {links.website && (
+                  <a
+                    href={links.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={t.link}
+                  >
+                    Website
+                  </a>
+                )}
+                {links.github && (
+                  <a
+                    href={links.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={t.link}
+                  >
+                    GitHub
+                  </a>
+                )}
+                {links.linkedin && (
+                  <a
+                    href={links.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={t.link}
+                  >
+                    LinkedIn
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -175,7 +232,7 @@ export default function PortfolioBuilder() {
   );
 }
 
-/* small input helpers (keeps the page tidy) */
+/* Helpers */
 function Input({ label, ...props }) {
   return (
     <label className="block text-sm">
