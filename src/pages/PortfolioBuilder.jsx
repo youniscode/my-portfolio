@@ -1,6 +1,8 @@
 // src/pages/portfolio-builder/PortfolioBuilder.jsx
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+const STORAGE_KEY = "portfolioBuilder:v1";
 
 export default function PortfolioBuilder() {
   const [form, setForm] = useState({
@@ -13,9 +15,47 @@ export default function PortfolioBuilder() {
     linkedin: "https://linkedin.com/in/yourname",
   });
 
-  const [theme, setTheme] = useState("dark"); // new state for theme
+  const [theme, setTheme] = useState("dark");
+  const [banner, setBanner] = useState(null); // success/error status
   const previewRef = useRef(null);
 
+  // ---- Save / Load / Clear functions ----
+  const showBanner = (type, msg) => {
+    setBanner({ type, msg });
+    setTimeout(() => setBanner(null), 2500);
+  };
+
+  const savePortfolio = () => {
+    const payload = { form, theme, savedAt: new Date().toISOString() };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    showBanner("success", "Portfolio saved locally.");
+  };
+
+  const loadPortfolio = () => {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return showBanner("error", "No saved portfolio found.");
+    try {
+      const { form: savedForm, theme: savedTheme } = JSON.parse(raw);
+      if (savedForm) setForm((prev) => ({ ...prev, ...savedForm }));
+      if (savedTheme) setTheme(savedTheme);
+      showBanner("success", "Saved portfolio loaded.");
+    } catch {
+      showBanner("error", "Could not read saved data.");
+    }
+  };
+
+  const clearSaved = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    showBanner("success", "Saved data cleared.");
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem(STORAGE_KEY)) {
+      showBanner("success", "Saved draft detected — you can Load it.");
+    }
+  }, []);
+
+  // ---- Form handling ----
   const handle = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
@@ -30,7 +70,7 @@ export default function PortfolioBuilder() {
     };
   }, [form]);
 
-  // Theme styling logic
+  // ---- Themes ----
   const themes = {
     dark: {
       bg: "bg-slate-950",
@@ -63,6 +103,7 @@ export default function PortfolioBuilder() {
 
   const t = themes[theme];
 
+  // ---- Copy / Download HTML ----
   const copyHtml = async () => {
     const node = previewRef.current;
     if (!node) return;
@@ -81,6 +122,7 @@ export default function PortfolioBuilder() {
     URL.revokeObjectURL(a.href);
   };
 
+  // ---- UI ----
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <div className="max-w-7xl mx-auto px-4 py-10">
@@ -93,9 +135,24 @@ export default function PortfolioBuilder() {
           Fill a few fields → preview a one-page portfolio instantly.
         </p>
 
-        {/* Theme Selector */}
-        <div className="mt-4">
-          <label className="text-sm text-slate-400 mr-3">Choose Theme:</label>
+        {/* Status Banner */}
+        {banner && (
+          <div
+            role="status"
+            aria-live="polite"
+            className={`mt-4 mb-2 rounded-lg px-3 py-2 text-sm ${
+              banner.type === "success"
+                ? "bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-400/30"
+                : "bg-rose-500/10 text-rose-300 ring-1 ring-rose-400/30"
+            }`}
+          >
+            {banner.msg}
+          </div>
+        )}
+
+        {/* Theme + Save controls */}
+        <div className="mt-4 flex flex-wrap gap-3 items-center">
+          <label className="text-sm text-slate-400 mr-2">Theme:</label>
           <select
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
@@ -105,6 +162,30 @@ export default function PortfolioBuilder() {
             <option value="light">Light</option>
             <option value="accent">Accent</option>
           </select>
+
+          <button
+            type="button"
+            onClick={savePortfolio}
+            className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium"
+          >
+            Save
+          </button>
+
+          <button
+            type="button"
+            onClick={loadPortfolio}
+            className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm"
+          >
+            Load
+          </button>
+
+          <button
+            type="button"
+            onClick={clearSaved}
+            className="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 px-3 py-2 rounded-lg text-xs"
+          >
+            Clear
+          </button>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 mt-8">
@@ -244,6 +325,7 @@ function Input({ label, ...props }) {
     </label>
   );
 }
+
 function Text({ label, ...props }) {
   return (
     <label className="block text-sm">
