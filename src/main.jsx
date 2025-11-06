@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PortfolioPage from "./App.jsx";
-import CoffeeHouse from "./projects/coffee-house/CoffeeHouse.jsx"; // <- you'll add this file
+import CoffeeHouse from "./pages/CoffeeHouse.jsx"; // <- you'll add this file
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
