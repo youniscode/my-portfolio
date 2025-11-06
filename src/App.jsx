@@ -72,10 +72,12 @@ export default function PortfolioPage() {
       name: "Portfolio Builder",
       tag: "React • Tailwind",
       summary:
-        "A fast, minimal personal portfolio generator built for freelancers.",
-      cta: "View Repo",
-      url: "https://github.com/youniscode/portfolio-builder",
+        "Generate a clean one-page portfolio from a few fields, live preview.",
+      cta: "Try It",
+      image: "/projects/portfolio-builder.png", // optional if you have it
+      url: "/portfolio-builder",
     },
+
     {
       name: "AI Form Assistant",
       tag: "Automation • AI",
