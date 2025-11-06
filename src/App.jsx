@@ -216,9 +216,9 @@ export default function PortfolioPage() {
               <h2 className="text-3xl font-semibold mb-3">About Me</h2>
               <p className="text-slate-400 leading-relaxed">
                 I’m Younis Haitham, a certified{" "}
-                <b>Développeur Web & Web Mobile</b> (France, Niveau 5). I build
-                modern, user-friendly websites and use AI tools to automate
-                repetitive tasks for clients.
+                <b>Développeur Web & Web Mobile</b>. I build modern,
+                user-friendly websites and use AI tools to automate repetitive
+                tasks for clients.
               </p>
             </div>
             <div className="space-y-4">
@@ -242,7 +242,7 @@ export default function PortfolioPage() {
         <section id="contact" className="max-w-7xl mx-auto px-4 py-16">
           <h2 className="text-3xl font-semibold mb-3">Let’s Work Together</h2>
           <p className="text-slate-400 mb-8">
-            Tell me about your project — I’ll reply within 24 hours.
+            Tell me about your project - I’ll reply within 24 hours.
           </p>
 
           {status.msg && (
@@ -310,7 +310,7 @@ export default function PortfolioPage() {
         </section>
 
         <footer className="border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
-          © {new Date().getFullYear()} Younis Haitham — All rights reserved.
+          © {new Date().getFullYear()} Younis Haitham - All rights reserved.
         </footer>
       </div>
     </>
