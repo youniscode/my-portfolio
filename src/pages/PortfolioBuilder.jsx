@@ -33,6 +33,9 @@ export default function PortfolioBuilder() {
   const [qr, setQr] = useState({ open: false, dataUrl: "", url: "" });
   const previewRef = useRef(null);
 
+  // for debounced autosave
+  const autosaveTimer = useRef(null);
+
   const showBanner = (type, msg) => {
     setBanner({ type, msg });
     setTimeout(() => setBanner(null), 2500);
@@ -51,35 +54,75 @@ export default function PortfolioBuilder() {
       linkedin: safe(form.linkedin),
     };
   }, [form]);
+  // ---------- auto-save to localStorage (debounced) ----------
+  useEffect(() => {
+    if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
+
+    autosaveTimer.current = setTimeout(() => {
+      try {
+        const payload = {
+          form,
+          theme,
+          savedAt: new Date().toISOString(),
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        // Optional: showBanner?.("success", "Changes saved.");
+      } catch (err) {
+        console.error("Auto-save failed:", err);
+        // showBanner?.("error", "Auto-save failed.");
+      }
+    }, 600); // debounce delay
+
+    return () => clearTimeout(autosaveTimer.current);
+  }, [form, theme]);
 
   // Auto-load from share hash on first mount
+  // ---------- bootstrap: load from hash or localStorage on first mount ----------
   useEffect(() => {
-    const hash = window.location.hash?.slice(1); // strip the leading '#'
-    if (!hash) return;
+    const hash = window.location.hash?.slice(1);
+    let bootstrapped = false;
 
-    try {
-      const decoded = decodeURIComponent(hash);
-      const payload = objectFromBase64(decoded); // { form, theme }
+    // 1) Try to load from the share link hash
+    if (hash) {
+      try {
+        const decoded = decodeURIComponent(hash);
+        const payload = objectFromBase64(decoded); // { form, theme }
 
-      if (payload?.form && typeof payload.form === "object") {
-        setForm((prev) => ({ ...prev, ...payload.form }));
+        if (payload?.form && typeof payload.form === "object") {
+          setForm((prev) => ({ ...prev, ...payload.form }));
+          bootstrapped = true;
+        }
+        if (payload?.theme && typeof payload.theme === "string") {
+          setTheme(payload.theme);
+        }
+
+        // Clean URL: keep path, remove hash
+        window.history.replaceState(null, "", window.location.pathname);
+        // showBanner?.("success", "Loaded portfolio from link.");
+      } catch (err) {
+        console.error("Invalid share link.", err);
+        // showBanner?.("error", "Invalid or expired share link.");
       }
-      if (payload?.theme && typeof payload.theme === "string") {
-        setTheme(payload.theme);
-      }
-
-      // Optional: clean the URL so reloading doesn't re-import every time
-      window.history.replaceState(null, "", window.location.pathname);
-
-      // Optional: show a quick success banner if you already have that helper
-      // showBanner("success", "Loaded portfolio from link.");
-    } catch (err) {
-      // Optional: banner if you have it
-      // showBanner("error", "Invalid or expired share link.");
-      console.error("Invalid share link:", err);
     }
-    // run once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // 2) Fallback to localStorage draft if no valid hash was used
+    if (!bootstrapped) {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const saved = JSON.parse(raw);
+          if (saved?.form && typeof saved.form === "object") {
+            setForm((prev) => ({ ...prev, ...saved.form }));
+          }
+          if (saved?.theme && typeof saved.theme === "string") {
+            setTheme(saved.theme);
+          }
+          // showBanner?.("success", "Draft loaded from this device.");
+        }
+      } catch (err) {
+        console.error("Could not load saved draft.", err);
+      }
+    }
   }, []);
 
   /* ---------- themes ---------- */
