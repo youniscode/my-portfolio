@@ -162,6 +162,36 @@ export default function PortfolioBuilder() {
     a.click();
     URL.revokeObjectURL(a.href);
   };
+  const previewInNewTab = () => {
+    const node = previewRef.current;
+    if (!node) return;
+
+    const html = `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${form.name} — ${form.role}</title>
+  <style>
+    :root{color-scheme:${theme === "light" ? "light" : "dark"}}
+    body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{max-width:800px;margin:48px auto;padding:0 20px}
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+  <div class="wrap">${node.innerHTML}</div>
+</body>
+</html>`;
+
+    const win = window.open("", "_blank");
+    if (win) {
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    }
+  };
 
   // ---- UI ----
   return (
@@ -295,11 +325,19 @@ export default function PortfolioBuilder() {
               >
                 Copy HTML
               </button>
+
               <button
                 onClick={downloadHtml}
                 className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
               >
                 Download HTML
+              </button>
+
+              <button
+                onClick={previewInNewTab}
+                className="border border-slate-700 px-4 py-2 rounded-xl text-sm hover:bg-slate-800 transition"
+              >
+                Preview in New Tab
               </button>
             </div>
           </div>
