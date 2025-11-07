@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProjectCard from "./components/ProjectCard";
-import Logo from "./assets/Logo.png";
+import Logo from "./assets/Logo.PNG";
 
 export default function PortfolioPage() {
   const nav = [
