@@ -1,10 +1,13 @@
 // src/pages/portfolio-builder/PortfolioBuilder.jsx
 import { useMemo, useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const STORAGE_KEY = "portfolioBuilder:v1";
 
 export default function PortfolioBuilder() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [form, setForm] = useState({
     name: "John Doe",
     role: "Web Developer",
@@ -16,15 +19,16 @@ export default function PortfolioBuilder() {
   });
 
   const [theme, setTheme] = useState("dark");
-  const [banner, setBanner] = useState(null); // success/error status
+  const [banner, setBanner] = useState(null);
   const previewRef = useRef(null);
 
-  // ---- Save / Load / Clear functions ----
+  // 🔹 Show success/error banner
   const showBanner = (type, msg) => {
     setBanner({ type, msg });
     setTimeout(() => setBanner(null), 2500);
   };
 
+  // 🔹 Save / Load / Clear (localStorage)
   const savePortfolio = () => {
     const payload = { form, theme, savedAt: new Date().toISOString() };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -36,7 +40,7 @@ export default function PortfolioBuilder() {
     if (!raw) return showBanner("error", "No saved portfolio found.");
     try {
       const { form: savedForm, theme: savedTheme } = JSON.parse(raw);
-      if (savedForm) setForm((prev) => ({ ...prev, ...savedForm }));
+      if (savedForm) setForm(savedForm);
       if (savedTheme) setTheme(savedTheme);
       showBanner("success", "Saved portfolio loaded.");
     } catch {
@@ -49,18 +53,56 @@ export default function PortfolioBuilder() {
     showBanner("success", "Saved data cleared.");
   };
 
+  // 🔹 Download JSON
+  const downloadJson = () => {
+    const payload = { form, theme };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: "application/json",
+    });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "portfolio.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showBanner("success", "JSON downloaded.");
+  };
+
+  // 🔹 Copy Share Link
+  const copyShareLink = async () => {
+    const encoded = encodeURIComponent(btoa(JSON.stringify({ form, theme })));
+    const shareUrl = `${window.location.origin}${location.pathname}#${encoded}`;
+    await navigator.clipboard.writeText(shareUrl);
+    showBanner("success", "Share link copied!");
+  };
+
+  // 🔹 Auto-load from hash link
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    try {
+      const decoded = JSON.parse(atob(decodeURIComponent(hash)));
+      if (decoded.form) setForm(decoded.form);
+      if (decoded.theme) setTheme(decoded.theme);
+      showBanner("success", "Portfolio loaded from shared link.");
+      navigate(location.pathname, { replace: true }); // clean hash from URL
+    } catch {
+      console.warn("Invalid share data in URL");
+    }
+  }, [location.pathname, navigate]);
+
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY)) {
       showBanner("success", "Saved draft detected — you can Load it.");
     }
   }, []);
 
-  // ---- Form handling ----
+  // 🔹 Handle inputs
   const handle = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
 
+  // 🔹 Safe links
   const links = useMemo(() => {
     const safe = (url) => (url?.startsWith("http") ? url : "");
     return {
@@ -70,7 +112,7 @@ export default function PortfolioBuilder() {
     };
   }, [form]);
 
-  // ---- Themes ----
+  // 🔹 Theme presets
   const themes = {
     dark: {
       bg: "bg-slate-950",
@@ -100,10 +142,9 @@ export default function PortfolioBuilder() {
       link: "text-indigo-300",
     },
   };
-
   const t = themes[theme];
 
-  // ---- Copy / Download HTML ----
+  // 🔹 Copy / Download HTML
   const copyHtml = async () => {
     const node = previewRef.current;
     if (!node) return;
@@ -150,7 +191,7 @@ export default function PortfolioBuilder() {
           </div>
         )}
 
-        {/* Theme + Save controls */}
+        {/* Controls */}
         <div className="mt-4 flex flex-wrap gap-3 items-center">
           <label className="text-sm text-slate-400 mr-2">Theme:</label>
           <select
@@ -164,30 +205,38 @@ export default function PortfolioBuilder() {
           </select>
 
           <button
-            type="button"
             onClick={savePortfolio}
             className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium"
           >
             Save
           </button>
-
           <button
-            type="button"
             onClick={loadPortfolio}
             className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm"
           >
             Load
           </button>
-
           <button
-            type="button"
             onClick={clearSaved}
             className="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 px-3 py-2 rounded-lg text-xs"
           >
             Clear
           </button>
+          <button
+            onClick={downloadJson}
+            className="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 px-3 py-2 rounded-lg text-xs"
+          >
+            Download JSON
+          </button>
+          <button
+            onClick={copyShareLink}
+            className="bg-indigo-950 hover:bg-indigo-800 border border-indigo-800 text-indigo-200 px-3 py-2 rounded-lg text-xs"
+          >
+            Copy Share Link
+          </button>
         </div>
 
+        {/* Main Layout */}
         <div className="grid lg:grid-cols-2 gap-8 mt-8">
           {/* Form */}
           <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
@@ -239,7 +288,7 @@ export default function PortfolioBuilder() {
               />
             </div>
 
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6 flex gap-3 flex-wrap">
               <button
                 onClick={copyHtml}
                 className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-xl text-sm"
