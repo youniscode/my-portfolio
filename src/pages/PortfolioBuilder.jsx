@@ -193,6 +193,40 @@ export default function PortfolioBuilder() {
     }
   };
 
+  const printToPdf = () => {
+    const node = previewRef.current;
+    if (!node) return;
+
+    const html = `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${form.name} — ${form.role}</title>
+  <style>
+    :root{color-scheme:${theme === "light" ? "light" : "dark"}}
+    body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{max-width:800px;margin:48px auto;padding:0 20px}
+  </style>
+</head>
+<body>
+  <div class="wrap">${node.innerHTML}</div>
+  <script>
+    window.onload = () => {
+      window.print();
+    };
+  </script>
+</body>
+</html>`;
+
+    const win = window.open("", "_blank");
+    if (win) {
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    }
+  };
+
   // ---- UI ----
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
@@ -338,6 +372,13 @@ export default function PortfolioBuilder() {
                 className="border border-slate-700 px-4 py-2 rounded-xl text-sm hover:bg-slate-800 transition"
               >
                 Preview in New Tab
+              </button>
+
+              <button
+                onClick={printToPdf}
+                className="border border-slate-700 px-4 py-2 rounded-xl text-sm hover:bg-slate-800 transition"
+              >
+                Print to PDF
               </button>
             </div>
           </div>
