@@ -1,13 +1,22 @@
 // src/pages/portfolio-builder/PortfolioBuilder.jsx
+// src/pages/portfolio-builder/PortfolioBuilder.jsx
 import { useMemo, useRef, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import * as QRCode from "qrcode";
 
 const STORAGE_KEY = "portfolioBuilder:v1";
 
-export default function PortfolioBuilder() {
-  const navigate = useNavigate();
-  const location = useLocation();
+/* ---------- UTF-8 safe Base64 helpers ---------- */
+function base64FromObject(obj) {
+  const json = JSON.stringify(obj);
+  const bytes = new TextEncoder().encode(json); // UTF-8 bytes
+  let binary = "";
+  bytes.forEach((b) => (binary += String.fromCharCode(b)));
+  return btoa(binary);
+}
 
+export default function PortfolioBuilder() {
+  /* ---------- form state ---------- */
   const [form, setForm] = useState({
     name: "John Doe",
     role: "Web Developer",
@@ -18,91 +27,22 @@ export default function PortfolioBuilder() {
     linkedin: "https://linkedin.com/in/yourname",
   });
 
+  /* ---------- UI state ---------- */
   const [theme, setTheme] = useState("dark");
-  const [banner, setBanner] = useState(null);
+  const [banner, setBanner] = useState(null); // {type,msg}
+  const [qr, setQr] = useState({ open: false, dataUrl: "", url: "" });
   const previewRef = useRef(null);
 
-  // 🔹 Show success/error banner
   const showBanner = (type, msg) => {
     setBanner({ type, msg });
     setTimeout(() => setBanner(null), 2500);
   };
 
-  // 🔹 Save / Load / Clear (localStorage)
-  const savePortfolio = () => {
-    const payload = { form, theme, savedAt: new Date().toISOString() };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    showBanner("success", "Portfolio saved locally.");
-  };
-
-  const loadPortfolio = () => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return showBanner("error", "No saved portfolio found.");
-    try {
-      const { form: savedForm, theme: savedTheme } = JSON.parse(raw);
-      if (savedForm) setForm(savedForm);
-      if (savedTheme) setTheme(savedTheme);
-      showBanner("success", "Saved portfolio loaded.");
-    } catch {
-      showBanner("error", "Could not read saved data.");
-    }
-  };
-
-  const clearSaved = () => {
-    localStorage.removeItem(STORAGE_KEY);
-    showBanner("success", "Saved data cleared.");
-  };
-
-  // 🔹 Download JSON
-  const downloadJson = () => {
-    const payload = { form, theme };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], {
-      type: "application/json",
-    });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "portfolio.json";
-    a.click();
-    URL.revokeObjectURL(a.href);
-    showBanner("success", "JSON downloaded.");
-  };
-
-  // 🔹 Copy Share Link
-  const copyShareLink = async () => {
-    const encoded = encodeURIComponent(btoa(JSON.stringify({ form, theme })));
-    const shareUrl = `${window.location.origin}${location.pathname}#${encoded}`;
-    await navigator.clipboard.writeText(shareUrl);
-    showBanner("success", "Share link copied!");
-  };
-
-  // 🔹 Auto-load from hash link
-  useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (!hash) return;
-    try {
-      const decoded = JSON.parse(atob(decodeURIComponent(hash)));
-      if (decoded.form) setForm(decoded.form);
-      if (decoded.theme) setTheme(decoded.theme);
-      showBanner("success", "Portfolio loaded from shared link.");
-      navigate(location.pathname, { replace: true }); // clean hash from URL
-    } catch {
-      console.warn("Invalid share data in URL");
-    }
-  }, [location.pathname, navigate]);
-
-  useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY)) {
-      showBanner("success", "Saved draft detected — you can Load it.");
-    }
-  }, []);
-
-  // 🔹 Handle inputs
   const handle = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
 
-  // 🔹 Safe links
   const links = useMemo(() => {
     const safe = (url) => (url?.startsWith("http") ? url : "");
     return {
@@ -112,7 +52,37 @@ export default function PortfolioBuilder() {
     };
   }, [form]);
 
-  // 🔹 Theme presets
+  // Auto-load from share hash on first mount
+  useEffect(() => {
+    const hash = window.location.hash?.slice(1); // strip the leading '#'
+    if (!hash) return;
+
+    try {
+      const decoded = decodeURIComponent(hash);
+      const payload = objectFromBase64(decoded); // { form, theme }
+
+      if (payload?.form && typeof payload.form === "object") {
+        setForm((prev) => ({ ...prev, ...payload.form }));
+      }
+      if (payload?.theme && typeof payload.theme === "string") {
+        setTheme(payload.theme);
+      }
+
+      // Optional: clean the URL so reloading doesn't re-import every time
+      window.history.replaceState(null, "", window.location.pathname);
+
+      // Optional: show a quick success banner if you already have that helper
+      // showBanner("success", "Loaded portfolio from link.");
+    } catch (err) {
+      // Optional: banner if you have it
+      // showBanner("error", "Invalid or expired share link.");
+      console.error("Invalid share link:", err);
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* ---------- themes ---------- */
   const themes = {
     dark: {
       bg: "bg-slate-950",
@@ -144,12 +114,12 @@ export default function PortfolioBuilder() {
   };
   const t = themes[theme];
 
-  // 🔹 Copy / Download HTML
+  /* ---------- actions: copy / download / preview / print ---------- */
   const copyHtml = async () => {
     const node = previewRef.current;
     if (!node) return;
     await navigator.clipboard.writeText(node.outerHTML);
-    alert("HTML copied to clipboard!");
+    showBanner("success", "HTML copied to clipboard.");
   };
 
   const downloadHtml = () => {
@@ -162,6 +132,7 @@ export default function PortfolioBuilder() {
     a.click();
     URL.revokeObjectURL(a.href);
   };
+
   const previewInNewTab = () => {
     const node = previewRef.current;
     if (!node) return;
@@ -169,28 +140,31 @@ export default function PortfolioBuilder() {
     const html = `<!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${form.name} — ${form.role}</title>
-  <style>
-    :root{color-scheme:${theme === "light" ? "light" : "dark"}}
-    body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
-    .wrap{max-width:800px;margin:48px auto;padding:0 20px}
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${form.name} — ${form.role}</title>
+<style>
+  :root { color-scheme: ${theme === "light" ? "light" : "dark"} }
+  body { margin:0; font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial; }
+  .wrap { max-width: 820px; margin: 48px auto; padding: 0 20px; }
+</style>
 </head>
 <body>
   <div class="wrap">${node.innerHTML}</div>
+  <script>
+    window.onload = () => window.print();
+  </script>
 </body>
 </html>`;
 
     const win = window.open("", "_blank");
-    if (win) {
-      win.document.open();
-      win.document.write(html);
-      win.document.close();
+    if (!win) {
+      alert("Popup blocked. Please allow popups for this site.");
+      return;
     }
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
   };
 
   const printToPdf = () => {
@@ -200,34 +174,87 @@ export default function PortfolioBuilder() {
     const html = `<!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${form.name} — ${form.role}</title>
-  <style>
-    :root{color-scheme:${theme === "light" ? "light" : "dark"}}
-    body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
-    .wrap{max-width:800px;margin:48px auto;padding:0 20px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${form.name} — ${form.role}</title>
+<style>
+  :root { color-scheme: ${theme === "light" ? "light" : "dark"} }
+  body { margin:0; font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial; }
+  .wrap { max-width: 820px; margin: 48px auto; padding: 0 20px; }
+</style>
 </head>
 <body>
   <div class="wrap">${node.innerHTML}</div>
   <script>
-    window.onload = () => {
-      window.print();
-    };
-  </script>
+  window.onload = () => window.print();
+</script>
+
 </body>
 </html>`;
 
     const win = window.open("", "_blank");
-    if (win) {
-      win.document.open();
-      win.document.write(html);
-      win.document.close();
+    if (!win) {
+      alert("Popup blocked. Please allow popups for this site.");
+      return;
+    }
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+  };
+
+  /* ---------- share: JSON / link / QR ---------- */
+  const downloadJson = () => {
+    const payload = {
+      form,
+      theme,
+      exportedAt: new Date().toISOString(),
+      version: 1,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: "application/json",
+    });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "portfolio.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  const copyShareLink = async () => {
+    try {
+      const encoded = encodeURIComponent(base64FromObject({ form, theme }));
+      const shareUrl = `${window.location.origin}${window.location.pathname}#${encoded}`;
+      await navigator.clipboard.writeText(shareUrl);
+      showBanner("success", "Share link copied.");
+    } catch {
+      showBanner("error", "Could not copy share link.");
     }
   };
 
-  // ---- UI ----
+  const generateQrCode = async () => {
+    try {
+      const encoded = encodeURIComponent(base64FromObject({ form, theme }));
+      const shareUrl = `${window.location.origin}${window.location.pathname}#${encoded}`;
+      const dataUrl = await QRCode.toDataURL(shareUrl, {
+        width: 260,
+        margin: 1,
+      });
+      setQr({ open: true, dataUrl, url: shareUrl });
+      showBanner("success", "QR code ready.");
+    } catch (err) {
+      console.error("❌ QR generation error:", err);
+      showBanner("error", "Failed to generate QR code.");
+    }
+  };
+  // UTF-8 safe Base64 -> object
+  function objectFromBase64(b64) {
+    const binary = atob(b64); // base64 -> binary string
+    const bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+    const json = new TextDecoder().decode(bytes); // bytes -> UTF-8 string
+    return JSON.parse(json);
+  }
+
+  /* ---------- UI ---------- */
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <div className="max-w-7xl mx-auto px-4 py-10">
@@ -240,24 +267,9 @@ export default function PortfolioBuilder() {
           Fill a few fields → preview a one-page portfolio instantly.
         </p>
 
-        {/* Status Banner */}
-        {banner && (
-          <div
-            role="status"
-            aria-live="polite"
-            className={`mt-4 mb-2 rounded-lg px-3 py-2 text-sm ${
-              banner.type === "success"
-                ? "bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-400/30"
-                : "bg-rose-500/10 text-rose-300 ring-1 ring-rose-400/30"
-            }`}
-          >
-            {banner.msg}
-          </div>
-        )}
-
-        {/* Controls */}
-        <div className="mt-4 flex flex-wrap gap-3 items-center">
-          <label className="text-sm text-slate-400 mr-2">Theme:</label>
+        {/* Theme Selector */}
+        <div className="mt-4">
+          <label className="text-sm text-slate-400 mr-3">Choose Theme:</label>
           <select
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
@@ -267,38 +279,22 @@ export default function PortfolioBuilder() {
             <option value="light">Light</option>
             <option value="accent">Accent</option>
           </select>
-
-          <button
-            onClick={savePortfolio}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium"
-          >
-            Save
-          </button>
-          <button
-            onClick={loadPortfolio}
-            className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm"
-          >
-            Load
-          </button>
-          <button
-            onClick={clearSaved}
-            className="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 px-3 py-2 rounded-lg text-xs"
-          >
-            Clear
-          </button>
-          <button
-            onClick={downloadJson}
-            className="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 px-3 py-2 rounded-lg text-xs"
-          >
-            Download JSON
-          </button>
-          <button
-            onClick={copyShareLink}
-            className="bg-indigo-950 hover:bg-indigo-800 border border-indigo-800 text-indigo-200 px-3 py-2 rounded-lg text-xs"
-          >
-            Copy Share Link
-          </button>
         </div>
+
+        {/* Banner */}
+        {banner && (
+          <div
+            className={`mt-4 rounded-lg px-3 py-2 text-sm ${
+              banner.type === "success"
+                ? "bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-400/30"
+                : "bg-rose-500/10 text-rose-300 ring-1 ring-rose-400/30"
+            }`}
+            role="status"
+            aria-live="polite"
+          >
+            {banner.msg}
+          </div>
+        )}
 
         {/* Main Layout */}
         <div className="grid lg:grid-cols-2 gap-8 mt-8">
@@ -352,41 +348,57 @@ export default function PortfolioBuilder() {
               />
             </div>
 
-            <div className="mt-6 flex gap-3 flex-wrap">
+            {/* Actions */}
+            <div className="mt-6 flex flex-wrap gap-3">
               <button
                 onClick={copyHtml}
                 className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-xl text-sm"
               >
                 Copy HTML
               </button>
-
               <button
                 onClick={downloadHtml}
                 className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
               >
                 Download HTML
               </button>
-
               <button
                 onClick={previewInNewTab}
-                className="border border-slate-700 px-4 py-2 rounded-xl text-sm hover:bg-slate-800 transition"
+                className="border border-slate-700 px-4 py-2 rounded-xl text-sm"
               >
                 Preview in New Tab
               </button>
-
               <button
                 onClick={printToPdf}
-                className="border border-slate-700 px-4 py-2 rounded-xl text-sm hover:bg-slate-800 transition"
+                className="border border-slate-700 px-4 py-2 rounded-xl text-sm"
               >
                 Print to PDF
+              </button>
+              <button
+                onClick={downloadJson}
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+              >
+                Download JSON
+              </button>
+              <button
+                onClick={copyShareLink}
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+              >
+                Copy Share Link
+              </button>
+              <button
+                onClick={generateQrCode}
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+              >
+                Generate QR Code
               </button>
             </div>
           </div>
 
           {/* Preview */}
           <div
-            className={`${t.bg} ${t.text} rounded-2xl p-5 border ${t.border} transition-colors`}
             ref={previewRef}
+            className={`${t.bg} ${t.text} rounded-2xl p-5 border ${t.border} transition-colors`}
           >
             <span className={`text-xs uppercase font-medium ${t.accent}`}>
               Portfolio
@@ -437,11 +449,64 @@ export default function PortfolioBuilder() {
           </div>
         </div>
       </div>
+
+      {/* QR Modal */}
+      {qr.open && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4"
+          onClick={() => setQr((p) => ({ ...p, open: false }))}
+        >
+          <div
+            className="bg-slate-950 border border-slate-800 rounded-2xl p-5 max-w-sm w-full text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-semibold mb-3">
+              Scan to open this portfolio
+            </h3>
+            <img
+              src={qr.dataUrl}
+              alt="QR Code"
+              className="mx-auto mb-4 w-[260px] h-[260px]"
+            />
+            <a
+              href={qr.url}
+              target="_blank"
+              rel="noopener"
+              className="text-indigo-400 hover:underline break-all text-sm"
+            >
+              {qr.url}
+            </a>
+            <div className="mt-4 flex justify-center gap-3">
+              <button
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+                onClick={() =>
+                  navigator.clipboard
+                    .writeText(qr.url)
+                    .then(() => showBanner("success", "Share link copied."))
+                    .catch(() =>
+                      showBanner("error", "Could not copy share link.")
+                    )
+                }
+              >
+                Copy Link
+              </button>
+              <button
+                className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-xl text-sm"
+                onClick={() => setQr((p) => ({ ...p, open: false }))}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-/* Helpers */
+/* ---------- small input helpers ---------- */
 function Input({ label, ...props }) {
   return (
     <label className="block text-sm">
