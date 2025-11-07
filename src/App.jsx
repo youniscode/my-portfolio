@@ -207,7 +207,7 @@ export default function PortfolioPage() {
               <h2 className="text-3xl font-semibold mb-3">About Me</h2>
               <p className="text-slate-400 leading-relaxed">
                 I’m Younis Haitham, a certified{" "}
-                <b>Développeur Web & Web Mobile</b>. I build modern,
+                <b>Developer Web & Web Mobile</b>. I build modern,
                 user-friendly websites and use AI tools to automate repetitive
                 tasks for clients.
               </p>

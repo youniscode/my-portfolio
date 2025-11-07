@@ -15,6 +15,17 @@ function base64FromObject(obj) {
   return btoa(binary);
 }
 
+// --- helper: format last-saved label ---
+function savedLabel(ts) {
+  if (!ts) return "";
+  const diff = Date.now() - ts;
+  if (diff < 15_000) return "Saved just now";
+  const mins = Math.floor(diff / 60_000);
+  if (mins < 60) return `Saved ${mins} min ago`;
+  const hrs = Math.floor(mins / 60);
+  return `Saved ${hrs} hr${hrs > 1 ? "s" : ""} ago`;
+}
+
 export default function PortfolioBuilder() {
   /* ---------- form state ---------- */
   const [form, setForm] = useState({
@@ -32,6 +43,8 @@ export default function PortfolioBuilder() {
   const [banner, setBanner] = useState(null); // {type,msg}
   const [qr, setQr] = useState({ open: false, dataUrl: "", url: "" });
   const previewRef = useRef(null);
+  // track last auto-save time
+  const [lastSavedAt, setLastSavedAt] = useState(null);
 
   // for debounced autosave
   const autosaveTimer = useRef(null);
@@ -67,6 +80,7 @@ export default function PortfolioBuilder() {
         };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
         // Optional: showBanner?.("success", "Changes saved.");
+        setLastSavedAt(Date.now());
       } catch (err) {
         console.error("Auto-save failed:", err);
         // showBanner?.("error", "Auto-save failed.");
@@ -435,6 +449,11 @@ export default function PortfolioBuilder() {
               >
                 Generate QR Code
               </button>
+
+              {/* save status */}
+              <div className="mt-2 text-xs text-slate-400">
+                {lastSavedAt ? <>💾 {savedLabel(lastSavedAt)}</> : null}
+              </div>
             </div>
           </div>
 
