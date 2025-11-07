@@ -99,9 +99,17 @@ export default function PortfolioPage() {
       <div className="min-h-screen bg-slate-950 text-slate-100">
         <header className="sticky top-0 z-40 backdrop-blur bg-slate-900/80 border-b border-slate-800">
           <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-            <a href="#" className="font-semibold tracking-tight text-xl">
-              jonascode.dev
+            <a
+              href="/"
+              className="flex items-center gap-2 font-semibold tracking-tight text-xl"
+            >
+              <img
+                src="/src/assets/Logo.png"
+                alt="JonasCode Logo"
+                className="h-9 w-auto object-contain brightness-110 drop-shadow-[0_0_6px_rgba(255,200,0,0.3)] transition-transform duration-300 hover:scale-105"
+              />
             </a>
+
             <nav className="hidden md:flex gap-6 text-sm">
               {nav.map((n) => (
                 <a
@@ -207,9 +215,9 @@ export default function PortfolioPage() {
               <h2 className="text-3xl font-semibold mb-3">About Me</h2>
               <p className="text-slate-400 leading-relaxed">
                 I’m Younis Haitham, a certified{" "}
-                <b>Developer Web & Web Mobile</b>. I build modern,
-                user-friendly websites and use AI tools to automate repetitive
-                tasks for clients.
+                <b>Developer Web & Web Mobile</b>. I build modern, user-friendly
+                websites and use AI tools to automate repetitive tasks for
+                clients.
               </p>
             </div>
             <div className="space-y-4">
