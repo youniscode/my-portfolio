@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ProjectCard from "./components/ProjectCard";
+import Logo from "./assets/Logo.png";
 
 export default function PortfolioPage() {
   const nav = [
@@ -104,8 +105,8 @@ export default function PortfolioPage() {
               className="flex items-center gap-2 font-semibold tracking-tight text-xl"
             >
               <img
-                src="/src/assets/Logo.png"
-                alt="JonasCode Logo"
+                src={Logo}
+                alt="JonasCode"
                 className="h-9 w-auto object-contain brightness-110 drop-shadow-[0_0_6px_rgba(255,200,0,0.3)] transition-transform duration-300 hover:scale-105"
               />
             </a>
