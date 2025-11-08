@@ -404,6 +404,13 @@ export default function PortfolioBuilder() {
                 value={form.skills}
                 onChange={handle}
               />
+              <Text
+                label="Projects (one per line, format: Title - https://link.com)"
+                name="projects"
+                value={form.projects}
+                onChange={handle}
+              />
+
               <Input
                 label="LinkedIn"
                 name="linkedin"
@@ -533,6 +540,25 @@ export default function PortfolioBuilder() {
           </div>
         </div>
       )}
+      {parseProjects(form.projects).length > 0 && (
+        <div className={`${t.card} rounded-2xl p-4 mt-6`}>
+          <h3 className="font-semibold mb-2">Projects</h3>
+          <ul className="space-y-1 text-sm">
+            {parseProjects(form.projects).map((p) => (
+              <li key={p.title}>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`${t.link} hover:underline`}
+                >
+                  {p.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* QR Modal */}
       {qr.open && (
@@ -596,6 +622,16 @@ function parseSkills(s) {
     .map((x) => x.trim())
     .filter(Boolean)
     .slice(0, 12);
+}
+
+function parseProjects(str = "") {
+  return str
+    .split("\n")
+    .map((line) => {
+      const [title, link] = line.split(" - ");
+      return title && link ? { title: title.trim(), link: link.trim() } : null;
+    })
+    .filter(Boolean);
 }
 
 /* ---------- small input helpers ---------- */
