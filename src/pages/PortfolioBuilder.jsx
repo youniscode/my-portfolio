@@ -485,7 +485,7 @@ export default function PortfolioBuilder() {
 
             <div className={`${t.card} rounded-xl p-4 mt-6`}>
               <h3 className="font-semibold mb-2">About</h3>
-              <p className={`${t.muted}`}>{form.bio}</p>
+              <p className={`${t.muted} leading-relaxed`}>{form.bio}</p>
             </div>
 
             {(links.website || links.github || links.linkedin) && (
@@ -526,8 +526,8 @@ export default function PortfolioBuilder() {
         </div>
       </div>
       {parseSkills(form.skills).length > 0 && (
-        <div className={`${t.card} rounded-2xl p-4 mt-6`}>
-          <h3 className="font-semibold mb-2">Skills</h3>
+        <div className={`${t.card} rounded-2xl p-5 mt-8`}>
+          <h3 className="font-semibold mb-3 tracking-tight">Skills</h3>
           <div className="flex flex-wrap gap-2">
             {parseSkills(form.skills).map((sk) => (
               <span
@@ -541,8 +541,8 @@ export default function PortfolioBuilder() {
         </div>
       )}
       {parseProjects(form.projects).length > 0 && (
-        <div className={`${t.card} rounded-2xl p-4 mt-6`}>
-          <h3 className="font-semibold mb-2">Projects</h3>
+        <div className={`${t.card} rounded-2xl p-5 mt-8`}>
+          <h3 className="font-semibold mb-3 tracking-tight">Projects</h3>
           <ul className="space-y-1 text-sm list-none">
             {parseProjects(form.projects).map((p) => (
               <li key={p.title} className="block">
