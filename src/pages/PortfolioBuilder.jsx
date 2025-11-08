@@ -423,43 +423,43 @@ export default function PortfolioBuilder() {
             <div className="mt-6 flex flex-wrap gap-3">
               <button
                 onClick={copyHtml}
-                className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-xl text-sm"
+                className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-xl text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/60 active:scale-[0.98]"
               >
                 Copy HTML
               </button>
               <button
                 onClick={downloadHtml}
-                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm transition-colors duration-200 hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 active:scale-[0.98]"
               >
                 Download HTML
               </button>
               <button
                 onClick={previewInNewTab}
-                className="border border-slate-700 px-4 py-2 rounded-xl text-sm"
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm transition-colors duration-200 hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 active:scale-[0.98]"
               >
                 Preview in New Tab
               </button>
               <button
                 onClick={printToPdf}
-                className="border border-slate-700 px-4 py-2 rounded-xl text-sm"
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm transition-colors duration-200 hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 active:scale-[0.98]"
               >
                 Print to PDF
               </button>
               <button
                 onClick={downloadJson}
-                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm transition-colors duration-200 hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 active:scale-[0.98]"
               >
                 Download JSON
               </button>
               <button
                 onClick={copyShareLink}
-                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm transition-colors duration-200 hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 active:scale-[0.98]"
               >
                 Copy Share Link
               </button>
               <button
                 onClick={generateQrCode}
-                className="border border-slate-600 px-4 py-2 rounded-xl text-sm"
+                className="border border-slate-600 px-4 py-2 rounded-xl text-sm transition-colors duration-200 hover:bg-slate-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 active:scale-[0.98]"
               >
                 Generate QR Code
               </button>
@@ -474,7 +474,11 @@ export default function PortfolioBuilder() {
           {/* Preview */}
           <div
             ref={previewRef}
-            className={`${t.bg} ${t.text} rounded-2xl p-5 border ${t.border} transition-colors`}
+            className={`${t.bg} ${t.text} rounded-2xl p-5 border ${
+              t.border
+            } transition-colors shadow-[0_8px_30px_rgba(0,0,0,0.35)] md:shadow-[0_12px_40px_rgba(0,0,0,0.35)] ${
+              theme === "dark" ? "ring-1 ring-indigo-500/20" : ""
+            }`}
           >
             <span className={`text-xs uppercase font-medium ${t.accent}`}>
               Portfolio
@@ -526,7 +530,7 @@ export default function PortfolioBuilder() {
         </div>
       </div>
       {parseSkills(form.skills).length > 0 && (
-        <div className={`${t.card} rounded-2xl p-5 mt-8`}>
+        <div className={`${t.card} rounded-xl p-5 mt-8`}>
           <h3 className="font-semibold mb-3 tracking-tight">Skills</h3>
           <div className="flex flex-wrap gap-2">
             {parseSkills(form.skills).map((sk) => (
@@ -541,7 +545,7 @@ export default function PortfolioBuilder() {
         </div>
       )}
       {parseProjects(form.projects).length > 0 && (
-        <div className={`${t.card} rounded-2xl p-5 mt-8`}>
+        <div className={`${t.card} rounded-xl p-5 mt-8`}>
           <h3 className="font-semibold mb-3 tracking-tight">Projects</h3>
           <ul className="space-y-1 text-sm list-none">
             {parseProjects(form.projects).map((p) => (
@@ -644,7 +648,7 @@ function Input({ label, ...props }) {
       <span className="text-slate-300">{label}</span>
       <input
         {...props}
-        className="mt-1 w-full rounded-lg bg-slate-800 border border-slate-700 px-4 py-2 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="mt-1 w-full rounded-lg bg-slate-800/95 border border-slate-700 px-4 py-2 text-slate-100 placeholder-slate-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/60 hover:bg-slate-800"
       />
     </label>
   );
@@ -657,7 +661,7 @@ function Text({ label, ...props }) {
       <textarea
         {...props}
         rows={4}
-        className="mt-1 w-full rounded-lg bg-slate-800 border border-slate-700 px-4 py-2 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="mt-1 w-full rounded-lg bg-slate-800/95 border border-slate-700 px-4 py-2 text-slate-100 placeholder-slate-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/60 hover:bg-slate-800"
       />
     </label>
   );
