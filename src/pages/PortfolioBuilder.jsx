@@ -36,6 +36,7 @@ export default function PortfolioBuilder() {
     website: "https://example.com",
     github: "https://github.com/yourname",
     linkedin: "https://linkedin.com/in/yourname",
+    skills: "React, Tailwind, Node.js",
   });
 
   /* ---------- UI state ---------- */
@@ -398,6 +399,12 @@ export default function PortfolioBuilder() {
                 onChange={handle}
               />
               <Input
+                label="Skills (comma-separated)"
+                name="skills"
+                value={form.skills}
+                onChange={handle}
+              />
+              <Input
                 label="LinkedIn"
                 name="linkedin"
                 value={form.linkedin}
@@ -511,6 +518,21 @@ export default function PortfolioBuilder() {
           </div>
         </div>
       </div>
+      {parseSkills(form.skills).length > 0 && (
+        <div className={`${t.card} rounded-2xl p-4 mt-6`}>
+          <h3 className="font-semibold mb-2">Skills</h3>
+          <div className="flex flex-wrap gap-2">
+            {parseSkills(form.skills).map((sk) => (
+              <span
+                key={sk}
+                className="px-2 py-1 text-xs rounded-lg border border-current/20 opacity-90"
+              >
+                {sk}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* QR Modal */}
       {qr.open && (
@@ -566,6 +588,14 @@ export default function PortfolioBuilder() {
       )}
     </div>
   );
+}
+function parseSkills(s) {
+  if (!s) return [];
+  return s
+    .split(",")
+    .map((x) => x.trim())
+    .filter(Boolean)
+    .slice(0, 12);
 }
 
 /* ---------- small input helpers ---------- */
