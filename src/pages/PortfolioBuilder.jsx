@@ -532,7 +532,7 @@ export default function PortfolioBuilder() {
             {parseSkills(form.skills).map((sk) => (
               <span
                 key={sk}
-                className="px-2 py-1 text-xs rounded-lg border border-current/20 opacity-90"
+                className="px-2.5 py-1 text-xs rounded-lg border border-current/20 opacity-90 font-medium"
               >
                 {sk}
               </span>
@@ -543,16 +543,19 @@ export default function PortfolioBuilder() {
       {parseProjects(form.projects).length > 0 && (
         <div className={`${t.card} rounded-2xl p-4 mt-6`}>
           <h3 className="font-semibold mb-2">Projects</h3>
-          <ul className="space-y-1 text-sm">
+          <ul className="space-y-1 text-sm list-none">
             {parseProjects(form.projects).map((p) => (
-              <li key={p.title}>
+              <li key={p.title} className="block">
                 <a
                   href={p.link}
                   target="_blank"
                   rel="noreferrer"
-                  className={`${t.link} hover:underline`}
+                  className={`${t.link} hover:underline inline-flex items-center gap-1`}
                 >
                   {p.title}
+                  <span aria-hidden="true" className="text-xs opacity-70">
+                    ↗
+                  </span>
                 </a>
               </li>
             ))}
