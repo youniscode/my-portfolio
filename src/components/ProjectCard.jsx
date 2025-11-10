@@ -6,13 +6,10 @@ export default function ProjectCard({ tag, name, summary, cta, url, image }) {
   return (
     <motion.div
       className="border border-slate-800 rounded-2xl p-5 bg-slate-950 hover:border-indigo-600 transition"
-      initial={{ opacity: 0, y: 24, scale: 0.98 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.85,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div className="aspect-video bg-slate-800 rounded-xl grid place-items-center text-3xl overflow-hidden">
         {image ? (
