@@ -84,7 +84,8 @@ export default function PortfolioPage() {
       tag: "Automation • AI",
       summary: "Automates form processing using ChatGPT + Make workflows.",
       cta: "View Demo",
-      url: "https://your-demo-url-3.com",
+      image: "/projects/ai-form-assistant.png",
+      url: "/ai-form-assistant", // ← point to your internal route
     },
   ];
 
