@@ -1,7 +1,16 @@
 // src/components/ProjectCard.jsx
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
+
 export default function ProjectCard({ tag, name, summary, cta, url, image }) {
   return (
-    <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950 hover:border-indigo-600 transition">
+    <motion.div
+      className="border border-slate-800 rounded-2xl p-5 bg-slate-950 hover:border-indigo-600 transition"
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+    >
       <div className="aspect-video bg-slate-800 rounded-xl grid place-items-center text-3xl overflow-hidden">
         {image ? (
           <img
@@ -28,6 +37,6 @@ export default function ProjectCard({ tag, name, summary, cta, url, image }) {
           {cta} →
         </a>
       )}
-    </div>
+    </motion.div>
   );
 }
