@@ -18,6 +18,17 @@ export default function AiFormAssistant() {
           A small demo that shows how form submissions can be routed through AI
           and automation tools (like Make/Zapier) to save you manual work.
         </p>
+        <p className="text-xs text-slate-400 mt-3">
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-900 border border-slate-700 px-3 py-1">
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-600 text-white">
+              Use case
+            </span>
+            <span>
+              For freelancers, agencies, and small businesses handling lots of
+              form leads.
+            </span>
+          </span>
+        </p>
 
         {/* Two-column layout: form + explanation */}
         <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -168,6 +179,48 @@ export default function AiFormAssistant() {
               )}
             </div>
           </div>
+        </div>
+        {/* Problem / Solution section */}
+        <div className="mt-10 rounded-2xl border border-slate-800 bg-slate-900 p-6">
+          <h2 className="text-lg font-semibold mb-3">Problem / Solution</h2>
+          <div className="grid md:grid-cols-2 gap-6 text-sm text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-100 mb-1">
+                ❌ The Problem
+              </h3>
+              <p className="text-slate-400">
+                Teams often lose time reading long, unstructured contact form
+                messages. Important leads get buried in inboxes and never
+                followed up.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-100 mb-1">
+                ✅ The Solution
+              </h3>
+              <p className="text-slate-400">
+                An AI-powered workflow summarizes, tags, and prioritizes each
+                message instantly routing it to your CRM or Slack with the key
+                info ready for action.
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* CTA section */}
+        <div className="mt-10 text-center border-t border-slate-800 pt-10">
+          <h2 className="text-2xl font-semibold mb-3">
+            Want a workflow like this for your business?
+          </h2>
+          <p className="text-slate-400 mb-6 text-sm max-w-md mx-auto">
+            I build AI-powered automations that save time and make your lead
+            handling smarter. Let’s design one that fits your tools.
+          </p>
+          <a
+            href="/#contact"
+            className="inline-block bg-indigo-600 hover:bg-indigo-500 px-6 py-2 rounded-xl font-medium text-sm"
+          >
+            Get in touch →
+          </a>
         </div>
       </div>
     </div>
