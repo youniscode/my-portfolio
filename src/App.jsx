@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ProjectCard from "./components/ProjectCard";
+import ProjectCard from "./components/ProjectCard.jsx";
 import Logo from "./assets/Logo.PNG";
 
 export default function PortfolioPage() {
@@ -42,20 +42,20 @@ export default function PortfolioPage() {
 
   const services = [
     {
-      title: "Websites",
-      desc: "Responsive websites and landing pages built fast with modern tools.",
+      title: "Launch-ready websites",
+      desc: "Custom, responsive sites and landing pages designed to look great on mobile and turn visitors into leads.",
     },
     {
-      title: "AI-powered automation",
-      desc: "Automate tasks or integrate AI assistants to save time and cost.",
+      title: "AI lead handling & automation",
+      desc: "Turn contact form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
     },
     {
-      title: "Web Apps",
-      desc: "Full-stack applications built with React, Node.js, and databases.",
+      title: "Web apps & client portals",
+      desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs so your clients can log in and self-serve.",
     },
     {
-      title: "Integrations",
-      desc: "Connect your site with payment, CRM, or analytics tools.",
+      title: "Integrations & tech glue",
+      desc: "Connect your site with tools like Stripe, Notion, Airtable, or Make/Zapier so everything works together instead of in silos.",
     },
   ];
 
@@ -90,10 +90,22 @@ export default function PortfolioPage() {
   ];
 
   const steps = [
-    { title: "Discover", text: "We discuss your goals, style, and features." },
-    { title: "Design", text: "I create a clean layout and choose visuals." },
-    { title: "Build", text: "Your site is developed using modern tools." },
-    { title: "Launch", text: "Final testing, deployment, and SEO setup." },
+    {
+      title: "Discovery & Strategy",
+      text: "We start with a short call to define your goals, target audience, and what success looks like. You’ll get a clear roadmap before we begin.",
+    },
+    {
+      title: "Design & Prototype",
+      text: "You’ll see a clickable mockup of your future website simple, visual, and easy to review. We refine it together before writing a single line of code.",
+    },
+    {
+      title: "Build & Automate",
+      text: "I develop your website using modern tech and connect AI or no-code automations to handle forms, leads, or repetitive tasks for you.",
+    },
+    {
+      title: "Launch & Support",
+      text: "Your site goes live with analytics, SEO basics, and a quick handover. I stay available for post-launch tweaks or future improvements.",
+    },
   ];
 
   return (
@@ -132,42 +144,64 @@ export default function PortfolioPage() {
           </div>
         </header>
 
-        <section className="mx-auto max-w-7xl px-4 py-24 grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <p className="inline-block border border-slate-700 bg-slate-800 text-slate-300 px-3 py-1 text-xs rounded-full">
-              Available for freelance projects
-            </p>
-            <h1 className="mt-4 text-5xl font-semibold">
-              Building smart websites & AI automations for small businesses
-            </h1>
-            <p className="mt-4 text-slate-400 leading-relaxed">
-              I’m a certified Web & Web Mobile Developer helping clients build
-              professional, modern websites and automate workflows using AI and
-              no-code tools.
-            </p>
-            <div className="mt-6 flex gap-3">
-              <a
-                href="#work"
-                className="bg-indigo-600 px-4 py-2.5 rounded-xl text-white text-sm font-medium hover:bg-indigo-700"
-              >
-                See my work
-              </a>
-              <a
-                href="#contact"
-                className="border border-slate-500 px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800"
-              >
-                Contact me
-              </a>
+        <section className="mx-auto max-w-7xl min-h-[90vh] flex items-center px-4 py-12 md:py-24">
+          <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-10 items-center w-full">
+            {/* LEFT TEXT */}
+            <div className="mx-auto md:mx-0">
+              <p className="inline-block border border-slate-700 bg-slate-800 text-slate-300 px-3 py-1 text-xs rounded-full">
+                Available for freelance projects
+              </p>
+
+              <h1 className="mt-4 text-5xl font-semibold leading-tight max-w-2xl">
+                I build <span className="text-indigo-400">smart websites</span>{" "}
+                and <span className="text-indigo-400">AI automations</span> that
+                help small businesses grow.
+              </h1>
+
+              <p className="mt-4 text-slate-400 leading-relaxed max-w-xl">
+                From landing pages to automated workflows, I help you launch
+                fast, look professional, and save hours every week by automating
+                forms, leads, and follow-ups using modern tech and AI tools.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#contact"
+                  className="bg-indigo-600 px-4 py-2.5 rounded-xl text-white text-sm font-medium hover:bg-indigo-700"
+                >
+                  Get a free quote
+                </a>
+                <a
+                  href="#work"
+                  className="border border-slate-500 px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800"
+                >
+                  See my work →
+                </a>
+              </div>
             </div>
-          </div>
-          <div className="text-center">
-            <div className="text-7xl">⚡</div>
-            <p className="text-slate-500 mt-2">Fast. Reliable. Smart.</p>
+
+            {/* RIGHT ICON */}
+            <div className="text-center md:text-right md:pr-10">
+              <div className="text-7xl">⚡</div>
+              <p className="text-slate-500 mt-2 text-sm font-medium">
+                Fast. Reliable. Smart.
+              </p>
+              <p className="text-slate-500 text-xs mt-1 max-w-xs md:ml-auto">
+                Websites + automations for small businesses, creators, and
+                agencies.
+              </p>
+            </div>
           </div>
         </section>
 
         <section id="services" className="max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-semibold mb-8">Services</h2>
+          <h2 className="text-3xl font-semibold">Services</h2>
+          <p className="text-slate-400 mt-2 mb-8 text-sm max-w-2xl">
+            I focus on small, practical projects that ship quickly: launch-ready
+            websites, simple web apps, and AI-powered automations that actually
+            save you time.
+          </p>
+
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((s) => (
               <div
@@ -196,7 +230,12 @@ export default function PortfolioPage() {
         </section>
 
         <section id="process" className="max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-semibold mb-8">How We’ll Work</h2>
+          <h2 className="text-3xl font-semibold mb-8">How Our Process Works</h2>
+          <p className="text-slate-400 mb-8 text-sm max-w-2xl">
+            A clear, fast, and collaborative process that keeps you in the loop
+            from our first chat to your live website.
+          </p>
+
           <div className="grid gap-6 md:grid-cols-4">
             {steps.map((s, i) => (
               <div key={i} className="border border-slate-800 rounded-2xl p-5">
@@ -216,12 +255,21 @@ export default function PortfolioPage() {
             <div>
               <h2 className="text-3xl font-semibold mb-3">About Me</h2>
               <p className="text-slate-400 leading-relaxed">
-                I’m Younis Haitham, a certified{" "}
-                <b>Developer Web & Web Mobile</b>. I build modern, user-friendly
-                websites and use AI tools to automate repetitive tasks for
-                clients.
+                I’m <b>Younis Haitham</b> a certified{" "}
+                <b>Web & Mobile Developer</b> passionate about building clean,
+                modern websites that actually help businesses grow.
+                <br />
+                <br />I combine <b>development</b> and <b>automation</b> to save
+                clients time: smart forms that route messages automatically,
+                dashboards that update themselves, and integrations that remove
+                repetitive work.
+                <br />
+                <br />
+                Every project I take on is practical, fast to deliver, and
+                focused on real results not just design for design’s sake.
               </p>
             </div>
+
             <div className="space-y-4">
               <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
                 <div className="font-semibold">Languages</div>
@@ -229,10 +277,29 @@ export default function PortfolioPage() {
                   English, French, Arabic
                 </p>
               </div>
+
               <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
                 <div className="font-semibold">Tech Stack</div>
                 <p className="text-slate-400 text-sm mt-1">
-                  React, Tailwind, Node.js, Framer, Make.com, AI APIs
+                  React, TailwindCSS, Node.js, Framer Motion, Make (Integromat),
+                  AI APIs
+                </p>
+              </div>
+
+              <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
+                <div className="font-semibold">Focus</div>
+                <p className="text-slate-400 text-sm mt-1">
+                  Web design & automation for small businesses, creators, and
+                  startups who need results fast.
+                </p>
+              </div>
+              <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
+                <div className="font-semibold">Beyond Code</div>
+                <p className="text-slate-400 text-sm mt-1">
+                  Outside of development, I enjoy exploring new AI tools,
+                  automating everyday workflows, and sharing knowledge with
+                  other tech enthusiasts. I’m always looking for smarter,
+                  simpler ways to solve problems both in code and in life.
                 </p>
               </div>
             </div>
