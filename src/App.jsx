@@ -196,6 +196,26 @@ export default function PortfolioPage() {
             </div>
           </div>
         </section>
+        {/* WHO I WORK WITH */}
+        <section className="border-y border-slate-800 bg-slate-900/40">
+          <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-300">
+            <span className="uppercase tracking-wide text-[0.7rem] text-slate-500">
+              Who I work with
+            </span>
+
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60">
+                Small businesses ready to look sharp online
+              </span>
+              <span className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60">
+                Founders automating their client workflow
+              </span>
+              <span className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60">
+                Agencies needing a dependable web dev partner
+              </span>
+            </div>
+          </div>
+        </section>
 
         <section id="services" className="max-w-7xl mx-auto px-4 py-16">
           <h2 className="text-3xl font-semibold">Services</h2>
@@ -228,6 +248,50 @@ export default function PortfolioPage() {
               {projects.map((p) => (
                 <ProjectCard key={p.name} {...p} />
               ))}
+            </div>
+          </div>
+        </section>
+        <section
+          id="testimonials"
+          className="bg-slate-900 border-y border-slate-800 py-16 px-4"
+        >
+          <div className="max-w-5xl mx-auto text-center">
+            <h2 className="text-3xl font-semibold mb-3">What People Say</h2>
+            <p className="text-slate-400 mb-8 text-sm">
+              Feedback and impressions from people I’ve collaborated or learned
+              with online.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="border border-slate-800 rounded-2xl p-6 bg-slate-950/60">
+                <p className="text-slate-300 text-sm">
+                  “Younis is very detail-oriented and fast. He turns ideas into
+                  working demos in a really structured way.”
+                </p>
+                <p className="text-slate-500 text-xs mt-3">
+                  Fellow developer, online community
+                </p>
+              </div>
+
+              <div className="border border-slate-800 rounded-2xl p-6 bg-slate-950/60">
+                <p className="text-slate-300 text-sm">
+                  “Clear communication, good questions, and always focused on
+                  solving the real problem, not just writing code.”
+                </p>
+                <p className="text-slate-500 text-xs mt-3">
+                  Project collaborator
+                </p>
+              </div>
+
+              <div className="border border-slate-800 rounded-2xl p-6 bg-slate-950/60">
+                <p className="text-slate-300 text-sm">
+                  “Delivers clean, modern results and cares about the user
+                  experience and automation behind the scenes.”
+                </p>
+                <p className="text-slate-500 text-xs mt-3">
+                  UX-focused teammate
+                </p>
+              </div>
             </div>
           </div>
         </section>
