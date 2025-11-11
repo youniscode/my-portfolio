@@ -110,7 +110,7 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-slate-950 text-slate-100">
+      <main className="min-h-screen bg-slate-950 text-slate-100">
         <header className="sticky top-0 z-40 backdrop-blur bg-slate-900/80 border-b border-slate-800">
           <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
             <a
@@ -124,7 +124,10 @@ export default function PortfolioPage() {
               />
             </a>
 
-            <nav className="hidden md:flex gap-6 text-sm">
+            <nav
+              className="hidden md:flex gap-6 text-sm"
+              aria-label="Main navigation"
+            >
               {nav.map((n) => (
                 <a
                   key={n.id}
@@ -411,7 +414,7 @@ export default function PortfolioPage() {
         <footer className="border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
           © {new Date().getFullYear()} Younis Haitham - All rights reserved.
         </footer>
-      </div>
+      </main>
     </>
   );
 }
