@@ -181,12 +181,12 @@ export default function PortfolioPage() {
             </div>
 
             {/* RIGHT ICON */}
-            <div className="text-center md:text-right md:pr-10">
+            <div className="flex flex-col items-center justify-center text-center md:items-end md:text-right md:pr-10 mt-10 md:mt-0">
               <div className="text-7xl">⚡</div>
-              <p className="text-slate-500 mt-2 text-sm font-medium">
+              <p className="text-slate-400 mt-3 text-base font-medium">
                 Fast. Reliable. Smart.
               </p>
-              <p className="text-slate-500 text-xs mt-1 max-w-xs md:ml-auto">
+              <p className="text-slate-500 text-sm mt-1 max-w-xs md:ml-auto leading-relaxed">
                 Websites + automations for small businesses, creators, and
                 agencies.
               </p>
