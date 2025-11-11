@@ -516,8 +516,41 @@ export default function PortfolioPage() {
           )}
         </section>
 
-        <footer className="border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
-          © {new Date().getFullYear()} Younis Haitham - All rights reserved.
+        <footer className="border-t border-slate-800 py-6 text-slate-500 text-sm">
+          <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="text-center sm:text-left">
+              <span>© {new Date().getFullYear()} Younis Haitham.</span>{" "}
+              <span className="text-slate-600">
+                Made by{" "}
+                <span className="text-slate-300 font-medium">JonasCode ⚡</span>
+              </span>
+            </div>
+
+            <div className="flex items-center gap-4 text-xs sm:text-sm">
+              <a
+                href="https://github.com/youniscode"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-300 hover:underline underline-offset-4"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/younis-haitham-9581b013a/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-slate-300 hover:underline underline-offset-4"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="mailto:contact@jonascode.com"
+                className="hover:text-slate-300 hover:underline underline-offset-4"
+              >
+                contact@jonascode.com
+              </a>
+            </div>
+          </div>
         </footer>
       </main>
     </>
