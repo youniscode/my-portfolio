@@ -313,6 +313,47 @@ export default function PortfolioPage() {
             ))}
           </div>
         </section>
+        {/* TECH & TOOLS */}
+        <section className="border-y border-slate-800 bg-slate-950/60">
+          <div className="max-w-7xl mx-auto px-4 py-8">
+            <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">
+              Tech & tools I work with
+            </p>
+
+            <div className="flex flex-wrap gap-2 text-xs sm:text-sm text-slate-200">
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                React
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                Vite
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                TailwindCSS
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                Node.js
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                Framer Motion
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                Make (Integromat)
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                Zapier
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                Formspree
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                Vercel
+              </span>
+              <span className="rounded-full border border-slate-700 px-3 py-1 bg-slate-900/70">
+                AI APIs (OpenAI, etc.)
+              </span>
+            </div>
+          </div>
+        </section>
 
         <section
           id="about"
