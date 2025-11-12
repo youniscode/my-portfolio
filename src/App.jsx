@@ -34,7 +34,7 @@ const copy = {
         },
         {
           title: "Design & Prototype",
-          text: "You’ll see a clickable mockup of your future website — simple, visual, and easy to review. We refine it together before writing a single line of code.",
+          text: "You’ll see a clickable mockup of your future website simple, visual, and easy to review. We refine it together before writing a single line of code.",
         },
         {
           title: "Build & Automate",
@@ -141,7 +141,7 @@ const copy = {
     hero: {
       badge: "Disponible pour des projets freelance",
       title:
-        '<span class="text-white">Je crée des <span class="text-indigo-400 font-bold">sites web intelligents</span> et des <span class="text-indigo-400 font-bold">automatisations IA</span> pour aider les petites entreprises à se développer.</span>',
+        '<span class="text-white">Je crée des <span class="text-indigo-400 font-bold">sites web intelligents</span> et des <span class="text-indigo-400 font-bold">automatisations AI</span> pour aider les petites entreprises à se développer.</span>',
 
       subtitle:
         "Des pages d’atterrissage aux flux de travail automatisés, je vous aide à lancer vite, à paraître professionnel et à gagner des heures chaque semaine en automatisant formulaires, leads et relances grâce aux technologies modernes et à l’IA.",
@@ -303,7 +303,7 @@ const copy = {
     },
     contactSection: {
       title: "دعنا نعمل معًا",
-      intro: "أخبرني عن مشروعك – سأعود إليك خلال 24 ساعة.",
+      intro: "أخبرني عن مشروعك, سأعود إليك خلال 24 ساعة.",
       successBanner: "شكرًا لرسالتك، سأرد عليك خلال 24 ساعة.",
       successTitle: "تم إرسال الرسالة بنجاح",
       successBody: "شكرًا لتواصلك! سأطّلع على رسالتك وأجيبك خلال 24 ساعة.",
