@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProjectCard from "./components/ProjectCard.jsx";
 import Logo from "./assets/Logo.PNG";
 
@@ -16,15 +16,20 @@ const copy = {
       badge: "Available for freelance projects",
       title:
         '<span class="text-white">I build <span class="text-indigo-400 font-bold">smart websites</span> and <span class="text-indigo-400 font-bold">AI automations</span> that help small businesses grow.</span>',
-
       subtitle:
         "From landing pages to automated workflows, I help you launch fast, look professional, and save hours every week by automating forms, leads, and follow-ups with modern tech and AI tools.",
-
       primaryCta: "Get a free quote",
       secondaryCta: "See my work →",
     },
+    heroAside: {
+      tagline: "Fast. Reliable. Smart.",
+      blurb:
+        "Websites + automations for small businesses, creators, and agencies.",
+    },
+
     processSection: {
       title: "How My Process Works",
+      stepLabel: "Step",
       intro:
         "A clear, fast, and collaborative process that keeps you involved from our first chat to your live website.",
       steps: [
@@ -34,7 +39,7 @@ const copy = {
         },
         {
           title: "Design & Prototype",
-          text: "You’ll see a clickable mockup of your future website simple, visual, and easy to review. We refine it together before writing a single line of code.",
+          text: "You’ll see a clickable mockup of your future website — simple, visual, and easy to review. We refine it together before writing a single line of code.",
         },
         {
           title: "Build & Automate",
@@ -128,6 +133,9 @@ const copy = {
         desc: "Connect your site with tools like Stripe, Notion, Airtable, or Make/Zapier so everything works together instead of in silos.",
       },
     ],
+    footer: {
+      madeBy: "Made by",
+    },
   },
   fr: {
     header: { cta: "Demander un devis" },
@@ -142,14 +150,19 @@ const copy = {
       badge: "Disponible pour des projets freelance",
       title:
         '<span class="text-white">Je crée des <span class="text-indigo-400 font-bold">sites web intelligents</span> et des <span class="text-indigo-400 font-bold">automatisations AI</span> pour aider les petites entreprises à se développer.</span>',
-
       subtitle:
         "Des pages d’atterrissage aux flux de travail automatisés, je vous aide à lancer vite, à paraître professionnel et à gagner des heures chaque semaine en automatisant formulaires, leads et relances grâce aux technologies modernes et à l’IA.",
       primaryCta: "Demander un devis gratuit",
       secondaryCta: "Voir mes projets →",
     },
+    heroAside: {
+      tagline: "Rapide. Fiable. Intelligent.",
+      blurb: "Sites web + automatisations pour TPE/PME, créateurs et agences.",
+    },
+
     processSection: {
       title: "Comment se déroule mon processus",
+      stepLabel: "Étape",
       intro:
         "Un processus clair, rapide et collaboratif qui vous implique du premier échange jusqu’à la mise en ligne de votre site.",
       steps: [
@@ -159,15 +172,15 @@ const copy = {
         },
         {
           title: "Conception & prototype",
-          text: "Je crée une maquette cliquable de votre futur site simple, visuelle et facile à commenter que nous ajustons ensemble avant le développement.",
+          text: "Vous voyez une maquette cliquable de votre futur site — simple, visuelle et facile à commenter. Nous l’affinons ensemble avant d’écrire la moindre ligne de code.",
         },
         {
           title: "Développement & automatisation",
-          text: "Je construis votre site avec les technologies modernes et j’y connecte les automatisations IA ou no-code pour gérer formulaires et leads.",
+          text: "Je développe votre site avec des technologies modernes et j’y connecte des automatisations IA ou no-code pour gérer formulaires, leads et tâches répétitives.",
         },
         {
           title: "Lancement & support",
-          text: "Votre site est mis en ligne avec les bases SEO et un suivi post-lancement pour les ajustements ou évolutions futures.",
+          text: "Mise en ligne avec analytics, bases SEO et passation rapide. Je reste disponible pour les ajustements post-lancement et les évolutions futures.",
         },
       ],
     },
@@ -254,6 +267,9 @@ const copy = {
         desc: "Relier votre site à Stripe, Notion, Airtable, Make/Zapier, pour que vos outils travaillent ensemble.",
       },
     ],
+    footer: {
+      madeBy: "Réalisé par",
+    },
   },
   ar: {
     header: { cta: "اطلب عرض سعر" },
@@ -270,30 +286,35 @@ const copy = {
         '<span class="text-white">أبني <span class="text-indigo-400 font-bold">مواقع ذكية</span> و<span class="text-indigo-400 font-bold">أتمتة بالذكاء الاصطناعي</span> لمساعدة الأعمال الصغيرة على النمو.</span>',
       subtitle:
         "من صفحات الهبوط إلى تدفقات العمل المؤتمتة، أساعدك على الإطلاق بسرعة وبمظهر احترافي، وتوفير ساعات كل أسبوع عبر أتمتة النماذج والعملاء المحتملين والمتابعات باستخدام التقنيات الحديثة وأدوات الذكاء الاصطناعي.",
-
       primaryCta: "اطلب عرض سعر مجاني",
       secondaryCta: "شاهد أعمالي →",
     },
+    heroAside: {
+      tagline: "سريع. موثوق. ذكي.",
+      blurb: "مواقع وأتمتة للشركات الصغيرة والمبدعين والوكالات.",
+    },
+
     processSection: {
       title: "كيف تتم عملية العمل",
+      stepLabel: "الخطوة",
       intro:
-        "عملية واضحة وسريعة وتعاونية تبقيك على اطلاع منذ أول محادثة حتى إطلاق موقعك مباشرة.",
+        "عملية واضحة وسريعة وتعاونية تُبقيك مُطّلعًا منذ أول محادثة حتى إطلاق موقعك.",
       steps: [
         {
           title: "التحليل والتخطيط",
-          text: "نبدأ بمكالمة قصيرة لتحديد أهدافك والجمهور المستهدف وما يعنيه النجاح بالنسبة لك، لتصلك خارطة طريق واضحة قبل البدء.",
+          text: "نبدأ بمكالمة قصيرة لتحديد أهدافك والجمهور المستهدف ومعايير النجاح. تحصل على خارطة طريق واضحة قبل البدء.",
         },
         {
           title: "التصميم والنموذج الأولي",
-          text: "سترى نموذجاً تفاعلياً لموقعك المستقبلي بسيطاً وسهل المراجعة ونقوم بتعديله معاً قبل كتابة أي كود.",
+          text: "سترى نموذجًا تفاعليًا لموقعك المستقبلي — بسيطًا، بصريًا، وسهل المراجعة. نُعدّله معًا قبل كتابة أي سطر كود.",
         },
         {
           title: "البرمجة والأتمتة",
-          text: "أقوم بتطوير موقعك باستخدام تقنيات حديثة وأربطه بأدوات ذكاء اصطناعي أو أتمتة لتسهيل إدارة النماذج والمهام المتكررة.",
+          text: "أطوّر موقعك بتقنيات حديثة وأربطه بأدوات ذكاء اصطناعي أو أتمتة لاستخدامها في النماذج والزوّار والمهام المتكررة.",
         },
         {
           title: "الإطلاق والدعم",
-          text: "نُطلق الموقع مع التحليلات والأساسيات الخاصة بتحسين الظهور، وأبقى متاحاً لأي تحسينات مستقبلية.",
+          text: "نُطلق الموقع مع التحليلات وأساسيات تحسين الظهور وتسليم سريع. أبقى متاحًا لأي تحسينات بعد الإطلاق أو إضافات مستقبلية.",
         },
       ],
     },
@@ -377,6 +398,9 @@ const copy = {
         desc: "ربط موقعك بخدمات مثل Stripe وNotion وAirtable وMake/Zapier حتى تعمل أدواتك معًا بسلاسة.",
       },
     ],
+    footer: {
+      madeBy: "صُنع بواسطة",
+    },
   },
 };
 
@@ -392,6 +416,22 @@ export default function PortfolioPage() {
   const [lang, setLang] = useState("en");
   const [status, setStatus] = useState({ state: "idle", msg: "" });
   const isRTL = lang === "ar";
+
+  // Load initial language from localStorage if present
+  useEffect(() => {
+    const saved = localStorage.getItem("lang");
+    if (saved && (saved === "en" || saved === "fr" || saved === "ar")) {
+      setLang(saved);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Keep <html> attributes in sync + remember choice
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("lang", lang);
+  }, [lang]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -486,10 +526,12 @@ export default function PortfolioPage() {
                 ))}
               </nav>
 
-              {/* Language switcher */}
+              {/* Language switcher (accessible) */}
               <div className="flex items-center gap-1 text-[11px] sm:text-xs text-slate-400">
                 <button
                   type="button"
+                  aria-label="Switch to English"
+                  aria-pressed={lang === "en"}
                   onClick={() => setLang("en")}
                   className={
                     lang === "en"
@@ -502,6 +544,8 @@ export default function PortfolioPage() {
                 <span className="text-slate-600">/</span>
                 <button
                   type="button"
+                  aria-label="Basculer en français"
+                  aria-pressed={lang === "fr"}
                   onClick={() => setLang("fr")}
                   className={
                     lang === "fr"
@@ -514,6 +558,8 @@ export default function PortfolioPage() {
                 <span className="text-slate-600">/</span>
                 <button
                   type="button"
+                  aria-label="التبديل إلى العربية"
+                  aria-pressed={lang === "ar"}
                   onClick={() => setLang("ar")}
                   className={
                     lang === "ar"
@@ -579,27 +625,31 @@ export default function PortfolioPage() {
             {/* RIGHT ICON */}
             <div className="flex flex-col items-center justify-center text-center mt-10 md:mt-0">
               <div className="text-7xl">⚡</div>
-              <p className="text-slate-400 mt-3 text-base font-medium">
-                Fast. Reliable. Smart
+              <p
+                className={`text-slate-400 mt-3 text-base font-medium ${
+                  isRTL ? "text-right" : "text-center"
+                }`}
+              >
+                {copy[lang].heroAside.tagline}
               </p>
-              <p className="text-slate-500 text-sm mt-1 max-w-xs leading-relaxed">
-                Websites + automations for small businesses, creators, and
-                agencies.
+              <p
+                className={`text-slate-500 text-sm mt-1 max-w-xs leading-relaxed ${
+                  isRTL ? "text-right" : "text-center"
+                }`}
+              >
+                {copy[lang].heroAside.blurb}
               </p>
             </div>
           </div>
         </section>
 
         {/* WHO I WORK WITH */}
-        {/* WHO I WORK WITH */}
         <section className="border-y border-slate-800 bg-slate-900/40">
           <div
             className="max-w-7xl mx-auto px-4 py-4"
             dir={isRTL ? "rtl" : "ltr"}
           >
-            {/* stack on mobile, row on md+ */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-3">
-              {/* label + chips in one flex container; “start” aligns to right in RTL */}
               <div
                 className={`flex flex-col md:flex-row items-start gap-3 w-full ${
                   isRTL ? "justify-start" : "justify-start"
@@ -670,6 +720,7 @@ export default function PortfolioPage() {
             >
               {copy[lang].workSection.title}
             </h2>
+
             <div
               className="grid gap-6 md:grid-cols-3"
               dir={isRTL ? "rtl" : "ltr"}
@@ -730,7 +781,9 @@ export default function PortfolioPage() {
                 key={i}
                 className="border border-slate-800 rounded-2xl p-5 hover:bg-slate-900 transition"
               >
-                <div className="text-indigo-400 text-xs mb-1">Step {i + 1}</div>
+                <div className="text-indigo-400 text-xs mb-1">
+                  {copy[lang].processSection.stepLabel} {i + 1}
+                </div>
                 <div className="font-semibold">{s.title}</div>
                 <p className="text-slate-400 mt-2 text-sm">{s.text}</p>
               </div>
