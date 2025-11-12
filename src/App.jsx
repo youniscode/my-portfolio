@@ -2,20 +2,400 @@ import { useState } from "react";
 import ProjectCard from "./components/ProjectCard.jsx";
 import Logo from "./assets/Logo.PNG";
 
+const copy = {
+  en: {
+    header: { cta: "Get a quote" },
+    nav: {
+      services: "Services",
+      work: "Work",
+      process: "Process",
+      about: "About",
+      contact: "Contact",
+    },
+    hero: {
+      badge: "Available for freelance projects",
+      title:
+        '<span class="text-white">I build <span class="text-indigo-400 font-bold">smart websites</span> and <span class="text-indigo-400 font-bold">AI automations</span> that help small businesses grow.</span>',
+
+      subtitle:
+        "From landing pages to automated workflows, I help you launch fast, look professional, and save hours every week by automating forms, leads, and follow-ups with modern tech and AI tools.",
+
+      primaryCta: "Get a free quote",
+      secondaryCta: "See my work →",
+    },
+    processSection: {
+      title: "How My Process Works",
+      intro:
+        "A clear, fast, and collaborative process that keeps you involved from our first chat to your live website.",
+      steps: [
+        {
+          title: "Discovery & Strategy",
+          text: "We start with a short call to define your goals, target audience, and what success looks like. You’ll get a clear roadmap before we begin.",
+        },
+        {
+          title: "Design & Prototype",
+          text: "You’ll see a clickable mockup of your future website — simple, visual, and easy to review. We refine it together before writing a single line of code.",
+        },
+        {
+          title: "Build & Automate",
+          text: "I develop your website using modern tech and connect AI or no-code automations to handle forms, leads, or repetitive tasks for you.",
+        },
+        {
+          title: "Launch & Support",
+          text: "Your site goes live with analytics, SEO basics, and a quick hand-over. I stay available for post-launch tweaks or future improvements.",
+        },
+      ],
+    },
+    aboutSection: {
+      title: "About Me",
+      body: "I’m Younis Haitham, a certified Web & Mobile Developer based in France. I enjoy building clean, modern websites and simple tools that help small businesses work smarter, not harder. I combine development and automation so forms, leads, and repetitive tasks are handled in the background while you focus on your clients.",
+    },
+    contactSection: {
+      title: "Let’s Work Together",
+      intro: "Tell me about your project, I’ll reply within 24 hours.",
+      successBanner: "Thanks! I’ll reply within 24 hours.",
+      successTitle: "Message sent successfully",
+      successBody:
+        "Thanks for reaching out! I’ll review your message and reply within 24 hours.",
+      successResetLabel: "Reset the form",
+      errorFallback:
+        "Something went wrong. You can also email me directly at contact@jonascode.com.",
+      form: {
+        nameLabel: "Your name",
+        emailLabel: "Email",
+        messageLabel: "What do you need help with?",
+        namePlaceholder: "Jane Doe",
+        emailPlaceholder: "jane@example.com",
+        messagePlaceholder:
+          "Tell me a bit about your project, timeline, and budget…",
+        submitIdle: "Send message",
+        submitLoading: "Sending…",
+        successResetPrompt: "Want to send another project brief?",
+      },
+    },
+    servicesSection: {
+      title: "Services",
+      intro:
+        "I focus on small, practical projects that ship quickly: launch-ready websites, simple web apps, and AI-powered automations that actually save you time.",
+    },
+    whoIWorkWith: {
+      label: "Who I work with",
+      chips: [
+        "Small businesses ready to look sharp online",
+        "Founders automating their client workflow",
+        "Agencies needing a dependable web dev partner",
+      ],
+    },
+    workSection: { title: "Selected Work" },
+    testimonialsSection: {
+      title: "What People Say",
+      intro:
+        "Feedback and impressions from people I’ve collaborated or learned with online.",
+      cards: [
+        {
+          quote:
+            "Younis is very detail-oriented and fast. He turns ideas into working demos in a really structured way.",
+          by: "Fellow developer, online community",
+        },
+        {
+          quote:
+            "Clear communication, good questions, and always focused on solving the real problem, not just writing code.",
+          by: "Project collaborator",
+        },
+        {
+          quote:
+            "Delivers clean, modern results and cares about the user experience and the automation behind the scenes.",
+          by: "UX-focused teammate",
+        },
+      ],
+    },
+    techToolsSection: { title: "Tech & tools I work with" },
+    services: [
+      {
+        title: "Launch-ready websites",
+        desc: "Custom, responsive sites and landing pages designed to look great on mobile and turn visitors into leads.",
+      },
+      {
+        title: "AI lead handling & automation",
+        desc: "Turn contact form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
+      },
+      {
+        title: "Web apps & client portals",
+        desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs so your clients can log in and self-serve.",
+      },
+      {
+        title: "Integrations & tech glue",
+        desc: "Connect your site with tools like Stripe, Notion, Airtable, or Make/Zapier so everything works together instead of in silos.",
+      },
+    ],
+  },
+  fr: {
+    header: { cta: "Demander un devis" },
+    nav: {
+      services: "Services",
+      work: "Projets",
+      process: "Processus",
+      about: "À propos",
+      contact: "Contact",
+    },
+    hero: {
+      badge: "Disponible pour des projets freelance",
+      title:
+        '<span class="text-white">Je crée des <span class="text-indigo-400 font-bold">sites web intelligents</span> et des <span class="text-indigo-400 font-bold">automatisations IA</span> pour aider les petites entreprises à se développer.</span>',
+
+      subtitle:
+        "Des pages d’atterrissage aux flux de travail automatisés, je vous aide à lancer vite, à paraître professionnel et à gagner des heures chaque semaine en automatisant formulaires, leads et relances grâce aux technologies modernes et à l’IA.",
+      primaryCta: "Demander un devis gratuit",
+      secondaryCta: "Voir mes projets →",
+    },
+    processSection: {
+      title: "Comment se déroule mon processus",
+      intro:
+        "Un processus clair, rapide et collaboratif qui vous implique du premier échange jusqu’à la mise en ligne de votre site.",
+      steps: [
+        {
+          title: "Découverte & stratégie",
+          text: "Un appel court pour définir vos objectifs, votre audience et les critères de réussite. Vous obtenez une feuille de route claire avant de commencer.",
+        },
+        {
+          title: "Conception & prototype",
+          text: "Je crée une maquette cliquable de votre futur site simple, visuelle et facile à commenter que nous ajustons ensemble avant le développement.",
+        },
+        {
+          title: "Développement & automatisation",
+          text: "Je construis votre site avec les technologies modernes et j’y connecte les automatisations IA ou no-code pour gérer formulaires et leads.",
+        },
+        {
+          title: "Lancement & support",
+          text: "Votre site est mis en ligne avec les bases SEO et un suivi post-lancement pour les ajustements ou évolutions futures.",
+        },
+      ],
+    },
+    aboutSection: {
+      title: "À propos de moi",
+      body: "Je m’appelle Younis Haitham, développeur web & mobile certifié basé en France. J’aime créer des sites modernes, clairs et utiles qui aident les petites entreprises à travailler plus intelligemment. Je combine développement et automatisation pour que les formulaires, leads et tâches répétitives soient gérés en arrière-plan pendant que vous vous concentrez sur vos clients.",
+    },
+    contactSection: {
+      title: "Travaillons ensemble",
+      intro: "Parlez-moi de votre projet, je vous répondrai sous 24 heures.",
+      successBanner:
+        "Merci pour votre message, je vous répondrai sous 24 heures.",
+      successTitle: "Message envoyé avec succès",
+      successBody:
+        "Merci pour votre message ! Je vais le lire et vous répondre sous 24 heures.",
+      successResetLabel: "Envoyer un autre projet",
+      errorFallback:
+        "Une erreur s’est produite. Vous pouvez aussi m’écrire directement à contact@jonascode.com.",
+      form: {
+        nameLabel: "Votre nom",
+        emailLabel: "Email",
+        messageLabel: "De quoi avez-vous besoin ?",
+        namePlaceholder: "Jean Dupont",
+        emailPlaceholder: "jean@example.com",
+        messagePlaceholder:
+          "Parlez-moi de votre projet, de vos délais et de votre budget…",
+        submitIdle: "Envoyer le message",
+        submitLoading: "Envoi…",
+        successResetPrompt: "Vous voulez décrire un autre projet ?",
+      },
+    },
+    servicesSection: {
+      title: "Services",
+      intro:
+        "Je me concentre sur des projets concrets et rapides à livrer : sites prêts à lancer, petites applications web et automatisations IA qui vous font réellement gagner du temps.",
+    },
+    whoIWorkWith: {
+      label: "Avec qui je travaille",
+      chips: [
+        "Petites entreprises voulant une image pro",
+        "Fondateurs qui automatisent leurs flux clients",
+        "Agences cherchant un partenaire dev fiable",
+      ],
+    },
+    workSection: { title: "Projets sélectionnés" },
+    testimonialsSection: {
+      title: "Ce qu’on dit de moi",
+      intro:
+        "Retours et impressions de personnes avec qui j’ai collaboré ou appris en ligne.",
+      cards: [
+        {
+          quote:
+            "Younis est précis et rapide. Il transforme les idées en démos fonctionnelles avec une vraie méthode.",
+          by: "Développeur, communauté en ligne",
+        },
+        {
+          quote:
+            "Communication claire, bonnes questions, toujours focalisé sur le vrai besoin, pas juste sur le code.",
+          by: "Collaborateur projet",
+        },
+        {
+          quote:
+            "Des résultats modernes et propres, avec une attention à l’expérience utilisateur et à l’automatisation.",
+          by: "Coéquipier orienté UX",
+        },
+      ],
+    },
+    techToolsSection: { title: "Technos & outils que j’utilise" },
+    services: [
+      {
+        title: "Sites web prêts à lancer",
+        desc: "Sites vitrines et landing pages responsives, pensés mobile et orientés conversion.",
+      },
+      {
+        title: "Traitement des leads & automatisation IA",
+        desc: "Transformer les formulaires et emails en leads structurés, tagués par l’IA et envoyés vers votre email, CRM ou Slack.",
+      },
+      {
+        title: "Applications web & espaces clients",
+        desc: "Applications web légères, tableaux de bord et portails clients avec React et des APIs modernes.",
+      },
+      {
+        title: "Intégrations & connecteurs",
+        desc: "Relier votre site à Stripe, Notion, Airtable, Make/Zapier, pour que vos outils travaillent ensemble.",
+      },
+    ],
+  },
+  ar: {
+    header: { cta: "اطلب عرض سعر" },
+    nav: {
+      services: "الخدمات",
+      work: "الأعمال",
+      process: "طريقة العمل",
+      about: "من أنا",
+      contact: "تواصل",
+    },
+    hero: {
+      badge: "متاح لمشاريع حرة",
+      title:
+        '<span class="text-white">أبني <span class="text-indigo-400 font-bold">مواقع ذكية</span> و<span class="text-indigo-400 font-bold">أتمتة بالذكاء الاصطناعي</span> لمساعدة الأعمال الصغيرة على النمو.</span>',
+      subtitle:
+        "من صفحات الهبوط إلى تدفقات العمل المؤتمتة، أساعدك على الإطلاق بسرعة وبمظهر احترافي، وتوفير ساعات كل أسبوع عبر أتمتة النماذج والعملاء المحتملين والمتابعات باستخدام التقنيات الحديثة وأدوات الذكاء الاصطناعي.",
+
+      primaryCta: "اطلب عرض سعر مجاني",
+      secondaryCta: "شاهد أعمالي →",
+    },
+    processSection: {
+      title: "كيف تتم عملية العمل",
+      intro:
+        "عملية واضحة وسريعة وتعاونية تبقيك على اطلاع منذ أول محادثة حتى إطلاق موقعك مباشرة.",
+      steps: [
+        {
+          title: "التحليل والتخطيط",
+          text: "نبدأ بمكالمة قصيرة لتحديد أهدافك والجمهور المستهدف وما يعنيه النجاح بالنسبة لك، لتصلك خارطة طريق واضحة قبل البدء.",
+        },
+        {
+          title: "التصميم والنموذج الأولي",
+          text: "سترى نموذجاً تفاعلياً لموقعك المستقبلي بسيطاً وسهل المراجعة ونقوم بتعديله معاً قبل كتابة أي كود.",
+        },
+        {
+          title: "البرمجة والأتمتة",
+          text: "أقوم بتطوير موقعك باستخدام تقنيات حديثة وأربطه بأدوات ذكاء اصطناعي أو أتمتة لتسهيل إدارة النماذج والمهام المتكررة.",
+        },
+        {
+          title: "الإطلاق والدعم",
+          text: "نُطلق الموقع مع التحليلات والأساسيات الخاصة بتحسين الظهور، وأبقى متاحاً لأي تحسينات مستقبلية.",
+        },
+      ],
+    },
+    aboutSection: {
+      title: "من أنا",
+      body: "أنا يونس هيثم، مطوّر مواقع وتطبيقات ويب حاصل على شهادة في تطوير الويب والويب موبايل. أحب بناء مواقع عصرية وبسيطة تساعد المشاريع الصغيرة على العمل بطريقة أذكى. أدمج بين البرمجة والأتمتة حتى يتم التعامل مع النماذج والمهام المتكررة في الخلفية بينما تركز أنت على عملائك.",
+    },
+    contactSection: {
+      title: "دعنا نعمل معًا",
+      intro: "أخبرني عن مشروعك – سأعود إليك خلال 24 ساعة.",
+      successBanner: "شكرًا لرسالتك، سأرد عليك خلال 24 ساعة.",
+      successTitle: "تم إرسال الرسالة بنجاح",
+      successBody: "شكرًا لتواصلك! سأطّلع على رسالتك وأجيبك خلال 24 ساعة.",
+      successResetLabel: "إرسال مشروع آخر",
+      errorFallback:
+        "حدث خطأ ما. يمكنك أيضًا مراسلتي مباشرة على contact@jonascode.com.",
+      form: {
+        nameLabel: "اسمك",
+        emailLabel: "البريد الإلكتروني",
+        messageLabel: "بماذا يمكنني مساعدتك؟",
+        namePlaceholder: "أحمد محمد",
+        emailPlaceholder: "ahmed@example.com",
+        messagePlaceholder:
+          "اكتب لي تفاصيل المشروع، المدة المتوقعة، والميزانية إن أمكن…",
+        submitIdle: "إرسال الرسالة",
+        submitLoading: "جاري الإرسال…",
+        successResetPrompt: "هل تريد إرسال وصف لمشروع آخر؟",
+      },
+    },
+    servicesSection: {
+      title: "الخدمات",
+      intro:
+        "أركّز على مشاريع عملية يمكن إطلاقها بسرعة: مواقع جاهزة، تطبيقات ويب بسيطة، وأتمتة بالذكاء الاصطناعي توفر عليك الوقت فعلاً.",
+    },
+    whoIWorkWith: {
+      label: "مع من أعمل",
+      chips: [
+        "أعمال صغيرة تريد مظهراً احترافياً",
+        "روّاد أعمال يؤتمتون سير عمل العملاء",
+        "وكالات تحتاج شريك تطوير موثوقاً",
+      ],
+    },
+    workSection: { title: "أعمال مختارة" },
+    testimonialsSection: {
+      title: "ماذا يقولون",
+      intro: "آراء وانطباعات أشخاص تعاونت معهم أو تعلّمت معهم عبر الإنترنت.",
+      cards: [
+        {
+          quote:
+            "يونس دقيق وسريع. يحوّل الأفكار إلى نماذج تعمل فعلياً وبطريقة منظمة.",
+          by: "مطور مجتمع إلكتروني",
+        },
+        {
+          quote:
+            "تواصل واضح، أسئلة جيدة، ويركّز دائماً على حل المشكلة الحقيقية لا مجرد كتابة الشيفرة.",
+          by: "متعاون في مشروع",
+        },
+        {
+          quote:
+            "نتائج عصرية ونظيفة واهتمام بتجربة المستخدم والأتمتة خلف الكواليس.",
+          by: "زميل مهتم بتجربة المستخدم",
+        },
+      ],
+    },
+    techToolsSection: { title: "التقنيات والأدوات التي أعمل بها" },
+    services: [
+      {
+        title: "مواقع جاهزة للإطلاق",
+        desc: "مواقع وصفحات هبوط متجاوبة، تظهر بشكل رائع على الهاتف وتركّز على تحويل الزوار إلى عملاء.",
+      },
+      {
+        title: "إدارة العملاء والأتمتة بالذكاء الاصطناعي",
+        desc: "تحويل رسائل النماذج والبريد المزدحم إلى عملاء محتملين منظمين ومصنفين بالذكاء الاصطناعي وموجّهين إلى بريدك أو نظام الـCRM.",
+      },
+      {
+        title: "تطبيقات ويب ولوحات تحكم",
+        desc: "تطبيقات ويب خفيفة، ولوحات تحكم أو بوابات للعملاء مبنية بـ React وواجهات برمجة حديثة.",
+      },
+      {
+        title: "الربط بين الأدوات والأنظمة",
+        desc: "ربط موقعك بخدمات مثل Stripe وNotion وAirtable وMake/Zapier حتى تعمل أدواتك معًا بسلاسة.",
+      },
+    ],
+  },
+};
+
 export default function PortfolioPage() {
   const nav = [
-    { id: "services", label: "Services" },
-    { id: "work", label: "Work" },
-    { id: "process", label: "Process" },
-    { id: "about", label: "About" },
-    { id: "contact", label: "Contact" },
+    { id: "services" },
+    { id: "work" },
+    { id: "process" },
+    { id: "about" },
+    { id: "contact" },
   ];
 
+  const [lang, setLang] = useState("en");
   const [status, setStatus] = useState({ state: "idle", msg: "" });
+  const isRTL = lang === "ar";
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setStatus({ state: "success", msg: "Thanks! I'll reply within 24 hours." });
+    setStatus({ state: "loading", msg: "" });
 
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -30,34 +410,15 @@ export default function PortfolioPage() {
       form.reset();
       setStatus({
         state: "success",
-        msg: "Thanks! I’ll reply within 24 hours.",
+        msg: copy[lang].contactSection.successBanner,
       });
     } else {
       setStatus({
         state: "error",
-        msg: "Something went wrong. Please try again or email contact@jonascode.com.",
+        msg: copy[lang].contactSection.errorFallback,
       });
     }
   }
-
-  const services = [
-    {
-      title: "Launch-ready websites",
-      desc: "Custom, responsive sites and landing pages designed to look great on mobile and turn visitors into leads.",
-    },
-    {
-      title: "AI lead handling & automation",
-      desc: "Turn contact form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
-    },
-    {
-      title: "Web apps & client portals",
-      desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs so your clients can log in and self-serve.",
-    },
-    {
-      title: "Integrations & tech glue",
-      desc: "Connect your site with tools like Stripe, Notion, Airtable, or Make/Zapier so everything works together instead of in silos.",
-    },
-  ];
 
   const projects = [
     {
@@ -67,7 +428,7 @@ export default function PortfolioPage() {
         "A modern cafe landing page built using Framer with integrated booking system.",
       cta: "View Demo",
       image: "/projects/coffee-house.png",
-      url: "/coffee-house", // internal route -> handled by <Link>
+      url: "/coffee-house",
     },
     {
       name: "Portfolio Builder",
@@ -75,44 +436,31 @@ export default function PortfolioPage() {
       summary:
         "Generate a clean one-page portfolio from a few fields, live preview.",
       cta: "Try It",
-      image: "/projects/portfolio-builder.png", // optional if you have it
+      image: "/projects/portfolio-builder.png",
       url: "/portfolio-builder",
     },
-
     {
       name: "AI Form Assistant",
       tag: "Automation • AI",
       summary: "Automates form processing using ChatGPT + Make workflows.",
       cta: "View Demo",
       image: "/projects/ai-form-assistant.png",
-      url: "/ai-form-assistant", // ← point to your internal route
-    },
-  ];
-
-  const steps = [
-    {
-      title: "Discovery & Strategy",
-      text: "We start with a short call to define your goals, target audience, and what success looks like. You’ll get a clear roadmap before we begin.",
-    },
-    {
-      title: "Design & Prototype",
-      text: "You’ll see a clickable mockup of your future website simple, visual, and easy to review. We refine it together before writing a single line of code.",
-    },
-    {
-      title: "Build & Automate",
-      text: "I develop your website using modern tech and connect AI or no-code automations to handle forms, leads, or repetitive tasks for you.",
-    },
-    {
-      title: "Launch & Support",
-      text: "Your site goes live with analytics, SEO basics, and a quick handover. I stay available for post-launch tweaks or future improvements.",
+      url: "/ai-form-assistant",
     },
   ];
 
   return (
     <>
-      <main className="min-h-screen bg-slate-950 text-slate-100">
-        <header className="sticky top-0 z-40 backdrop-blur bg-slate-900/80 border-b border-slate-800">
-          <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+      <main
+        className="min-h-screen bg-slate-950 text-slate-100"
+        dir={isRTL ? "rtl" : "ltr"}
+      >
+        <header
+          className="sticky top-0 z-40 backdrop-blur bg-slate-900/80 border-b border-slate-800"
+          dir="ltr"
+        >
+          <div className="mx-auto max-w-7xl px-4 py-3 flex flex-row items-center justify-between">
+            {/* Logo always on the left */}
             <a
               href="/"
               className="flex items-center gap-2 font-semibold tracking-tight text-xl"
@@ -124,47 +472,91 @@ export default function PortfolioPage() {
               />
             </a>
 
-            <nav
-              className="hidden md:flex gap-6 text-sm"
-              aria-label="Main navigation"
-            >
-              {nav.map((n) => (
-                <a
-                  key={n.id}
-                  href={`#${n.id}`}
-                  className="hover:text-indigo-400"
+            {/* Right side: nav + language + CTA */}
+            <div className="flex items-center gap-4">
+              <nav className="hidden md:flex gap-6 text-sm">
+                {nav.map((n) => (
+                  <a
+                    key={n.id}
+                    href={`#${n.id}`}
+                    className="hover:text-indigo-400"
+                  >
+                    {copy[lang].nav[n.id]}
+                  </a>
+                ))}
+              </nav>
+
+              {/* Language switcher */}
+              <div className="flex items-center gap-1 text-[11px] sm:text-xs text-slate-400">
+                <button
+                  type="button"
+                  onClick={() => setLang("en")}
+                  className={
+                    lang === "en"
+                      ? "text-indigo-400 font-semibold"
+                      : "hover:text-slate-200"
+                  }
                 >
-                  {n.label}
-                </a>
-              ))}
-            </nav>
-            <a
-              href="#contact"
-              className="rounded-xl border border-indigo-500 px-3 py-2 text-sm font-medium text-indigo-300 hover:bg-indigo-600/10"
-            >
-              Get a quote
-            </a>
+                  EN
+                </button>
+                <span className="text-slate-600">/</span>
+                <button
+                  type="button"
+                  onClick={() => setLang("fr")}
+                  className={
+                    lang === "fr"
+                      ? "text-indigo-400 font-semibold"
+                      : "hover:text-slate-200"
+                  }
+                >
+                  FR
+                </button>
+                <span className="text-slate-600">/</span>
+                <button
+                  type="button"
+                  onClick={() => setLang("ar")}
+                  className={
+                    lang === "ar"
+                      ? "text-indigo-400 font-semibold"
+                      : "hover:text-slate-200"
+                  }
+                >
+                  AR
+                </button>
+              </div>
+
+              {/* CTA uses header copy */}
+              <a
+                href="#contact"
+                className="rounded-xl border border-indigo-500 px-3 py-2 text-sm font-medium text-indigo-300 hover:bg-indigo-600/10"
+              >
+                {copy[lang].header.cta}
+              </a>
+            </div>
           </div>
         </header>
 
+        {/* HERO */}
         <section className="mx-auto max-w-7xl min-h-[90vh] flex items-center px-4 py-12 md:py-24">
           <div className="grid md:grid-cols-[1.2fr_0.8fr] gap-10 items-center w-full">
-            {/* LEFT TEXT */}
             <div className="mx-auto md:mx-0">
               <p className="inline-block border border-slate-700 bg-slate-800 text-slate-300 px-3 py-1 text-xs rounded-full">
-                Available for freelance projects
+                {copy[lang].hero.badge}
               </p>
 
-              <h1 className="mt-4 text-5xl font-semibold leading-tight max-w-2xl">
-                I build <span className="text-indigo-400">smart websites</span>{" "}
-                and <span className="text-indigo-400">AI automations</span> that
-                help small businesses grow.
-              </h1>
+              <h1
+                className={`mt-4 text-5xl font-semibold leading-tight max-w-2xl ${
+                  isRTL ? "text-right md:text-right" : "text-left md:text-left"
+                }`}
+                dangerouslySetInnerHTML={{ __html: copy[lang].hero.title }}
+              />
 
-              <p className="mt-4 text-slate-400 leading-relaxed max-w-xl">
-                From landing pages to automated workflows, I help you launch
-                fast, look professional, and save hours every week by automating
-                forms, leads, and follow-ups using modern tech and AI tools.
+              <p
+                className={`mt-4 text-slate-400 leading-relaxed max-w-xl ${
+                  isRTL ? "text-right md:text-right" : "text-left md:text-left"
+                }`}
+              >
+                {copy[lang].hero.subtitle}
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -172,61 +564,84 @@ export default function PortfolioPage() {
                   href="#contact"
                   className="bg-indigo-600 px-4 py-2.5 rounded-xl text-white text-sm font-medium hover:bg-indigo-700"
                 >
-                  Get a free quote
+                  {copy[lang].hero.primaryCta}
                 </a>
                 <a
                   href="#work"
                   className="border border-slate-500 px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-slate-800"
                 >
-                  See my work →
+                  {copy[lang].hero.secondaryCta}
                 </a>
               </div>
             </div>
 
             {/* RIGHT ICON */}
-            <div className="flex flex-col items-center justify-center text-center md:items-end md:text-right md:pr-10 mt-10 md:mt-0">
+            <div className="flex flex-col items-center justify-center text-center mt-10 md:mt-0">
               <div className="text-7xl">⚡</div>
               <p className="text-slate-400 mt-3 text-base font-medium">
-                Fast. Reliable. Smart.
+                Fast. Reliable. Smart
               </p>
-              <p className="text-slate-500 text-sm mt-1 max-w-xs md:ml-auto leading-relaxed">
+              <p className="text-slate-500 text-sm mt-1 max-w-xs leading-relaxed">
                 Websites + automations for small businesses, creators, and
                 agencies.
               </p>
             </div>
           </div>
         </section>
+
         {/* WHO I WORK WITH */}
         <section className="border-y border-slate-800 bg-slate-900/40">
-          <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-300">
-            <span className="uppercase tracking-wide text-[0.7rem] text-slate-500">
-              Who I work with
-            </span>
+          <div
+            className="max-w-7xl mx-auto px-4 py-4"
+            dir={isRTL ? "rtl" : "ltr"}
+          >
+            <div
+              className={`flex items-center gap-3 w-full ${
+                isRTL ? "justify-start" : "justify-start"
+              }`}
+            >
+              {/* Label */}
+              <span className="uppercase tracking-wide text-[0.7rem] text-slate-500 shrink-0">
+                {copy[lang].whoIWorkWith.label}
+              </span>
 
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60">
-                Small businesses ready to look sharp online
-              </span>
-              <span className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60">
-                Founders automating their client workflow
-              </span>
-              <span className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60">
-                Agencies needing a dependable web dev partner
-              </span>
+              {/* Chips */}
+              <div
+                className={`flex flex-wrap gap-2 ${
+                  isRTL ? "justify-end" : "justify-start"
+                } shrink-0`}
+              >
+                {copy[lang].whoIWorkWith.chips.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60 text-xs sm:text-sm text-slate-300"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
+        {/* SERVICES */}
         <section id="services" className="max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-semibold">Services</h2>
-          <p className="text-slate-400 mt-2 mb-8 text-sm max-w-2xl">
-            I focus on small, practical projects that ship quickly: launch-ready
-            websites, simple web apps, and AI-powered automations that actually
-            save you time.
+          <h2 className={`text-3xl font-semibold ${isRTL ? "text-right" : ""}`}>
+            {copy[lang].servicesSection.title}
+          </h2>
+          <p
+            className={`text-slate-400 mt-2 mb-8 text-sm max-w-2xl ${
+              isRTL ? "text-right" : ""
+            }`}
+          >
+            {copy[lang].servicesSection.intro}
           </p>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((s) => (
+          <div
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            dir={isRTL ? "rtl" : "ltr"}
+          >
+            {copy[lang].services.map((s) => (
               <div
                 key={s.title}
                 className="border border-slate-800 rounded-2xl p-5 hover:bg-slate-900 transition"
@@ -238,74 +653,79 @@ export default function PortfolioPage() {
           </div>
         </section>
 
+        {/* WORK */}
         <section
           id="work"
           className="bg-slate-900 border-y border-slate-800 py-16 px-4"
         >
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl font-semibold mb-8">Selected Work</h2>
-            <div className="grid gap-6 md:grid-cols-3">
+            <h2
+              className={`text-3xl font-semibold mb-8 ${
+                isRTL ? "text-right" : ""
+              }`}
+            >
+              {copy[lang].workSection.title}
+            </h2>
+            <div
+              className="grid gap-6 md:grid-cols-3"
+              dir={isRTL ? "rtl" : "ltr"}
+            >
               {projects.map((p) => (
                 <ProjectCard key={p.name} {...p} />
               ))}
             </div>
           </div>
         </section>
+
+        {/* TESTIMONIALS */}
         <section
           id="testimonials"
           className="bg-slate-900 border-y border-slate-800 py-16 px-4"
         >
-          <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-3xl font-semibold mb-3">What People Say</h2>
-            <p className="text-slate-400 mb-8 text-sm">
-              Feedback and impressions from people I’ve collaborated or learned
-              with online.
+          <div
+            className={`max-w-5xl mx-auto ${
+              isRTL ? "text-right" : "text-center"
+            }`}
+          >
+            <h2 className="text-3xl font-semibold mb-3">
+              {copy[lang].testimonialsSection.title}
+            </h2>
+            <p className={`text-slate-400 mb-8 text-sm`}>
+              {copy[lang].testimonialsSection.intro}
             </p>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="border border-slate-800 rounded-2xl p-6 bg-slate-950/60">
-                <p className="text-slate-300 text-sm">
-                  “Younis is very detail-oriented and fast. He turns ideas into
-                  working demos in a really structured way.”
-                </p>
-                <p className="text-slate-500 text-xs mt-3">
-                  Fellow developer, online community
-                </p>
-              </div>
-
-              <div className="border border-slate-800 rounded-2xl p-6 bg-slate-950/60">
-                <p className="text-slate-300 text-sm">
-                  “Clear communication, good questions, and always focused on
-                  solving the real problem, not just writing code.”
-                </p>
-                <p className="text-slate-500 text-xs mt-3">
-                  Project collaborator
-                </p>
-              </div>
-
-              <div className="border border-slate-800 rounded-2xl p-6 bg-slate-950/60">
-                <p className="text-slate-300 text-sm">
-                  “Delivers clean, modern results and cares about the user
-                  experience and automation behind the scenes.”
-                </p>
-                <p className="text-slate-500 text-xs mt-3">
-                  UX-focused teammate
-                </p>
-              </div>
+              {copy[lang].testimonialsSection.cards.map((c, i) => (
+                <div
+                  key={i}
+                  className="border border-slate-800 rounded-2xl p-6 bg-slate-950/60"
+                >
+                  <p className="text-slate-300 text-sm">“{c.quote}”</p>
+                  <p className="text-slate-500 text-xs mt-3">{c.by}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
+        {/* PROCESS */}
         <section id="process" className="max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-semibold mb-8">How Our Process Works</h2>
+          <h2 className="text-3xl font-semibold mb-8">
+            {copy[lang].processSection.title}
+          </h2>
           <p className="text-slate-400 mb-8 text-sm max-w-2xl">
-            A clear, fast, and collaborative process that keeps you in the loop
-            from our first chat to your live website.
+            {copy[lang].processSection.intro}
           </p>
 
-          <div className="grid gap-6 md:grid-cols-4">
-            {steps.map((s, i) => (
-              <div key={i} className="border border-slate-800 rounded-2xl p-5">
+          <div
+            className="grid gap-6 md:grid-cols-4"
+            dir={isRTL ? "rtl" : "ltr"}
+          >
+            {copy[lang].processSection.steps.map((s, i) => (
+              <div
+                key={i}
+                className="border border-slate-800 rounded-2xl p-5 hover:bg-slate-900 transition"
+              >
                 <div className="text-indigo-400 text-xs mb-1">Step {i + 1}</div>
                 <div className="font-semibold">{s.title}</div>
                 <p className="text-slate-400 mt-2 text-sm">{s.text}</p>
@@ -313,11 +733,16 @@ export default function PortfolioPage() {
             ))}
           </div>
         </section>
+
         {/* TECH & TOOLS */}
         <section className="border-y border-slate-800 bg-slate-950/60">
           <div className="max-w-7xl mx-auto px-4 py-8">
-            <p className="text-xs uppercase tracking-wide text-slate-500 mb-3">
-              Tech & tools I work with
+            <p
+              className={`text-xs uppercase tracking-wide text-slate-500 mb-3 ${
+                isRTL ? "text-right" : ""
+              }`}
+            >
+              {copy[lang].techToolsSection.title}
             </p>
 
             <div className="flex flex-wrap gap-2 text-xs sm:text-sm text-slate-200">
@@ -355,26 +780,26 @@ export default function PortfolioPage() {
           </div>
         </section>
 
+        {/* ABOUT */}
         <section
           id="about"
           className="bg-slate-900 border-y border-slate-800 py-16 px-4"
         >
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 className="text-3xl font-semibold mb-3">About Me</h2>
-              <p className="text-slate-400 leading-relaxed">
-                I’m <b>Younis Haitham</b> a certified{" "}
-                <b>Web & Mobile Developer</b> passionate about building clean,
-                modern websites that actually help businesses grow.
-                <br />
-                <br />I combine <b>development</b> and <b>automation</b> to save
-                clients time: smart forms that route messages automatically,
-                dashboards that update themselves, and integrations that remove
-                repetitive work.
-                <br />
-                <br />
-                Every project I take on is practical, fast to deliver, and
-                focused on real results not just design for design’s sake.
+              <h2
+                className={`text-3xl font-semibold mb-3 ${
+                  isRTL ? "text-right" : "text-left"
+                }`}
+              >
+                {copy[lang].aboutSection.title}
+              </h2>
+              <p
+                className={`text-slate-400 leading-relaxed ${
+                  isRTL ? "text-right" : "text-left"
+                }`}
+              >
+                {copy[lang].aboutSection.body}
               </p>
             </div>
 
@@ -416,9 +841,20 @@ export default function PortfolioPage() {
 
         {/* CONTACT */}
         <section id="contact" className="max-w-7xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-semibold mb-3">Let’s Work Together</h2>
-          <p className="text-slate-400 mb-8">
-            Tell me about your project - I’ll reply within 24 hours.
+          <h2
+            className={`text-3xl font-semibold mb-3 ${
+              isRTL ? "text-right" : "text-left"
+            }`}
+          >
+            {copy[lang].contactSection.title}
+          </h2>
+
+          <p
+            className={`text-slate-400 mb-8 ${
+              isRTL ? "text-right" : "text-left"
+            }`}
+          >
+            {copy[lang].contactSection.intro}
           </p>
 
           {status.msg && (
@@ -436,66 +872,65 @@ export default function PortfolioPage() {
           )}
 
           {status.state === "success" ? (
-            // ✅ Success screen
             <div className="rounded-2xl border border-emerald-500/40 bg-emerald-950/30 p-6">
               <div className="text-sm font-medium text-emerald-300 mb-1">
-                Message sent successfully
+                {copy[lang].contactSection.successTitle}
               </div>
               <p className="text-sm text-emerald-100 mb-3">
-                Thanks for reaching out! I’ll review your message and reply
-                within <span className="font-semibold">24 hours</span>.
+                {copy[lang].contactSection.successBody}
               </p>
               <p className="text-xs text-emerald-200/80">
-                Want to send another project brief?{" "}
+                {copy[lang].contactSection.form.successResetPrompt}{" "}
                 <button
                   type="button"
                   onClick={() => setStatus({ state: "idle", msg: "" })}
                   className="underline underline-offset-2 hover:text-emerald-100"
                 >
-                  Reset the form
+                  {copy[lang].contactSection.successResetLabel}
                 </button>
                 .
               </p>
             </div>
           ) : (
-            // 📨 Contact form (shown when not successful yet)
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm text-slate-300 mb-1">
-                  Your name
+                  {copy[lang].contactSection.form.nameLabel}
                 </label>
                 <input
                   type="text"
                   name="name"
                   required
                   className="w-full rounded-lg bg-slate-900 border border-slate-700 px-4 py-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Jane Doe"
+                  placeholder={copy[lang].contactSection.form.namePlaceholder}
                 />
               </div>
 
               <div>
                 <label className="block text-sm text-slate-300 mb-1">
-                  Email
+                  {copy[lang].contactSection.form.emailLabel}
                 </label>
                 <input
                   type="email"
                   name="email"
                   required
                   className="w-full rounded-lg bg-slate-900 border border-slate-700 px-4 py-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="jane@example.com"
+                  placeholder={copy[lang].contactSection.form.emailPlaceholder}
                 />
               </div>
 
               <div>
                 <label className="block text-sm text-slate-300 mb-1">
-                  What do you need help with?
+                  {copy[lang].contactSection.form.messageLabel}
                 </label>
                 <textarea
                   name="message"
                   rows={4}
                   required
                   className="w-full rounded-lg bg-slate-900 border border-slate-700 px-4 py-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Tell me a bit about your project, timeline, and budget…"
+                  placeholder={
+                    copy[lang].contactSection.form.messagePlaceholder
+                  }
                 />
               </div>
 
@@ -503,19 +938,21 @@ export default function PortfolioPage() {
                 type="submit"
                 className="w-full bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-xl font-medium text-sm"
               >
-                {status.state === "loading" ? "Sending…" : "Send message"}
+                {status.state === "loading"
+                  ? copy[lang].contactSection.form.submitLoading
+                  : copy[lang].contactSection.form.submitIdle}
               </button>
 
               {status.state === "error" && (
                 <p className="text-xs text-rose-300 mt-1">
-                  {status.msg ||
-                    "Something went wrong. You can also email me directly at your@email.com."}
+                  {status.msg || copy[lang].contactSection.errorFallback}
                 </p>
               )}
             </form>
           )}
         </section>
 
+        {/* FOOTER */}
         <footer className="border-t border-slate-800 py-6 text-slate-500 text-sm">
           <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="text-center sm:text-left">
