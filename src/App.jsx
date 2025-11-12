@@ -591,35 +591,38 @@ export default function PortfolioPage() {
         </section>
 
         {/* WHO I WORK WITH */}
+        {/* WHO I WORK WITH */}
         <section className="border-y border-slate-800 bg-slate-900/40">
           <div
             className="max-w-7xl mx-auto px-4 py-4"
             dir={isRTL ? "rtl" : "ltr"}
           >
-            <div
-              className={`flex items-center gap-3 w-full ${
-                isRTL ? "justify-start" : "justify-start"
-              }`}
-            >
-              {/* Label */}
-              <span className="uppercase tracking-wide text-[0.7rem] text-slate-500 shrink-0">
-                {copy[lang].whoIWorkWith.label}
-              </span>
-
-              {/* Chips */}
+            {/* stack on mobile, row on md+ */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-3">
+              {/* label + chips in one flex container; “start” aligns to right in RTL */}
               <div
-                className={`flex flex-wrap gap-2 ${
-                  isRTL ? "justify-end" : "justify-start"
-                } shrink-0`}
+                className={`flex flex-col md:flex-row items-start gap-3 w-full ${
+                  isRTL ? "justify-start" : "justify-start"
+                }`}
               >
-                {copy[lang].whoIWorkWith.chips.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60 text-xs sm:text-sm text-slate-300"
-                  >
-                    {t}
-                  </span>
-                ))}
+                <span className="uppercase tracking-wide text-[0.7rem] text-slate-500 shrink-0">
+                  {copy[lang].whoIWorkWith.label}
+                </span>
+
+                <div
+                  className={`flex flex-wrap gap-2 w-full ${
+                    isRTL ? "justify-start" : "justify-start"
+                  }`}
+                >
+                  {copy[lang].whoIWorkWith.chips.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60 whitespace-nowrap"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
