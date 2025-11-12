@@ -528,7 +528,8 @@ export default function PortfolioPage() {
               {/* CTA uses header copy */}
               <a
                 href="#contact"
-                className="rounded-xl border border-indigo-500 px-3 py-2 text-sm font-medium text-indigo-300 hover:bg-indigo-600/10"
+                className="rounded-xl border border-indigo-500 px-4 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-indigo-300 hover:bg-indigo-600/10 whitespace-nowrap transition-all duration-200"
+                style={{ lineHeight: "1.4em", marginTop: "2px" }}
               >
                 {copy[lang].header.cta}
               </a>
