@@ -66,7 +66,7 @@ export default function CoffeeHouse() {
       <section id="booking" className="max-w-6xl mx-auto px-4 py-16">
         <h3 className="text-2xl font-semibold mb-6">Book a Table</h3>
         <p className="text-[#d4cfc7] mb-6">
-          Reserve your spot—tell us when you’re visiting and how many guests.
+          Reserve your spot tell us when you’re visiting and how many guests.
         </p>
 
         <form

@@ -21,6 +21,13 @@ const copy = {
       primaryCta: "Get a free quote",
       secondaryCta: "See my work →",
     },
+    seo: {
+      title: "JonasCode Smart websites & AI automations for small businesses",
+      description:
+        "I build fast, modern websites and AI-powered automations that help small businesses look professional and save hours every week.",
+      ogImage: "https://jonascode.com/og.png", // update if you have a different path
+    },
+
     heroAside: {
       tagline: "Fast. Reliable. Smart.",
       blurb:
@@ -39,7 +46,7 @@ const copy = {
         },
         {
           title: "Design & Prototype",
-          text: "You’ll see a clickable mockup of your future website — simple, visual, and easy to review. We refine it together before writing a single line of code.",
+          text: "You’ll see a clickable mockup of your future website simple, visual, and easy to review. We refine it together before writing a single line of code.",
         },
         {
           title: "Build & Automate",
@@ -155,6 +162,13 @@ const copy = {
       primaryCta: "Demander un devis gratuit",
       secondaryCta: "Voir mes projets →",
     },
+    seo: {
+      title: "JonasCode Sites web modernes & automatisations IA pour PME",
+      description:
+        "Je crée des sites rapides et professionnels et des automatisations IA qui font gagner des heures chaque semaine aux petites entreprises.",
+      ogImage: "https://jonascode.com/og.png",
+    },
+
     heroAside: {
       tagline: "Rapide. Fiable. Intelligent.",
       blurb: "Sites web + automatisations pour TPE/PME, créateurs et agences.",
@@ -172,7 +186,7 @@ const copy = {
         },
         {
           title: "Conception & prototype",
-          text: "Vous voyez une maquette cliquable de votre futur site — simple, visuelle et facile à commenter. Nous l’affinons ensemble avant d’écrire la moindre ligne de code.",
+          text: "Vous voyez une maquette cliquable de votre futur site simple, visuelle et facile à commenter. Nous l’affinons ensemble avant d’écrire la moindre ligne de code.",
         },
         {
           title: "Développement & automatisation",
@@ -289,6 +303,13 @@ const copy = {
       primaryCta: "اطلب عرض سعر مجاني",
       secondaryCta: "شاهد أعمالي →",
     },
+    seo: {
+      title: "JonasCode مواقع حديثة وأتمتة بالذكاء الاصطناعي للأعمال الصغيرة",
+      description:
+        "أبني مواقع سريعة واحترافية وأتمتة تعمل بالذكاء الاصطناعي لتوفير ساعات من العمل أسبوعياً للأعمال الصغيرة.",
+      ogImage: "https://jonascode.com/og.png",
+    },
+
     heroAside: {
       tagline: "سريع. موثوق. ذكي.",
       blurb: "مواقع وأتمتة للشركات الصغيرة والمبدعين والوكالات.",
@@ -306,7 +327,7 @@ const copy = {
         },
         {
           title: "التصميم والنموذج الأولي",
-          text: "سترى نموذجًا تفاعليًا لموقعك المستقبلي — بسيطًا، بصريًا، وسهل المراجعة. نُعدّله معًا قبل كتابة أي سطر كود.",
+          text: "سترى نموذجًا تفاعليًا لموقعك المستقبلي بسيطًا، بصريًا، وسهل المراجعة. نُعدّله معًا قبل كتابة أي سطر كود.",
         },
         {
           title: "البرمجة والأتمتة",
@@ -413,6 +434,65 @@ export default function PortfolioPage() {
     { id: "contact" },
   ];
 
+  function upsertMeta(selector, attrName, content) {
+    if (!content) return;
+    let el =
+      document.head.querySelector(selector) ||
+      (() => {
+        const tag = selector.startsWith("meta[property")
+          ? document.createElement("meta")
+          : document.createElement("meta");
+        if (selector.includes("name=")) {
+          const m = selector.match(/name="([^"]+)"/);
+          if (m) tag.setAttribute("name", m[1]);
+        }
+        if (selector.includes("property=")) {
+          const m = selector.match(/property="([^"]+)"/);
+          if (m) tag.setAttribute("property", m[1]);
+        }
+        document.head.appendChild(tag);
+        return tag;
+      })();
+    el.setAttribute(attrName, content);
+  }
+
+  function setSEO(seo, lang) {
+    if (!seo) return;
+    // <title>
+    document.title = seo.title;
+
+    // <meta name="description">
+    upsertMeta('meta[name="description"]', "content", seo.description);
+
+    // Open Graph
+    upsertMeta('meta[property="og:title"]', "content", seo.title);
+    upsertMeta('meta[property="og:description"]', "content", seo.description);
+    upsertMeta('meta[property="og:type"]', "content", "website");
+    upsertMeta(
+      'meta[property="og:locale"]',
+      "content",
+      lang === "ar" ? "ar" : lang === "fr" ? "fr_FR" : "en_US"
+    );
+    upsertMeta('meta[property="og:image"]', "content", seo.ogImage);
+    upsertMeta('meta[property="og:url"]', "content", window.location.href);
+
+    // Twitter
+    upsertMeta('meta[name="twitter:card"]', "content", "summary_large_image");
+    upsertMeta('meta[name="twitter:title"]', "content", seo.title);
+    upsertMeta('meta[name="twitter:description"]', "content", seo.description);
+    upsertMeta('meta[name="twitter:image"]', "content", seo.ogImage);
+
+    // Canonical
+    let link = document.head.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      document.head.appendChild(link);
+    }
+    // canonical WITHOUT ?lang= to consolidate signals
+    link.setAttribute("href", `${location.origin}${location.pathname}`);
+  }
+
   const [lang, setLang] = useState("en");
   const [status, setStatus] = useState({ state: "idle", msg: "" });
   const isRTL = lang === "ar";
@@ -431,6 +511,12 @@ export default function PortfolioPage() {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     localStorage.setItem("lang", lang);
+  }, [lang]);
+  // Sync SEO tags with current language
+  useEffect(() => {
+    const seo = copy[lang]?.seo;
+    setSEO(seo, lang);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
   async function handleSubmit(e) {
@@ -541,6 +627,7 @@ export default function PortfolioPage() {
                 >
                   EN
                 </button>
+
                 <span className="text-slate-600">/</span>
                 <button
                   type="button"
@@ -784,6 +871,7 @@ export default function PortfolioPage() {
                 <div className="text-indigo-400 text-xs mb-1">
                   {copy[lang].processSection.stepLabel} {i + 1}
                 </div>
+
                 <div className="font-semibold">{s.title}</div>
                 <p className="text-slate-400 mt-2 text-sm">{s.text}</p>
               </div>
