@@ -98,7 +98,42 @@ const copy = {
         "Agencies needing a dependable web dev partner",
       ],
     },
-    workSection: { title: "Selected Work" },
+    workSection: {
+      title: "Selected Work",
+      projects: [
+        {
+          name: "Coffee House Website",
+          tag: "Framer • Small Business",
+          summary:
+            "A modern café landing page built in Framer with an integrated booking module.",
+          cta: "View Demo",
+          image: "/projects/coffee-house.png",
+          alt: "Minimal coffee house landing page mockup on a laptop with latte art",
+          url: "/coffee-house",
+        },
+        {
+          name: "Portfolio Builder",
+          tag: "React • Tailwind",
+          summary:
+            "Generate a clean one-page portfolio from a few fields, with a live preview.",
+          cta: "Try It",
+          image: "/projects/portfolio-builder.png",
+          alt: "Portfolio builder interface showing form fields and live preview",
+          url: "/portfolio-builder",
+        },
+        {
+          name: "AI Form Assistant",
+          tag: "Automation • AI",
+          summary:
+            "Automates form processing using ChatGPT with Make workflows piping to your CRM.",
+          cta: "View Demo",
+          image: "/projects/ai-form-assistant.png",
+          alt: "AI form assistant diagram connecting a web form to CRM via AI",
+          url: "/ai-form-assistant",
+        },
+      ],
+    },
+
     testimonialsSection: {
       title: "What People Say",
       intro:
@@ -239,7 +274,42 @@ const copy = {
         "Agences cherchant un partenaire dev fiable",
       ],
     },
-    workSection: { title: "Projets sélectionnés" },
+    workSection: {
+      title: "Projets sélectionnés",
+      projects: [
+        {
+          name: "Site Coffee House",
+          tag: "Framer • Petite entreprise",
+          summary:
+            "Landing page de café moderne réalisée avec Framer et module de réservation intégré.",
+          cta: "Voir la démo",
+          image: "/projects/coffee-house.png",
+          alt: "Maquette d’une landing page de café minimaliste sur un laptop avec latte art",
+          url: "/coffee-house",
+        },
+        {
+          name: "Générateur de Portfolio",
+          tag: "React • Tailwind",
+          summary:
+            "Créez un portfolio une page propre à partir de quelques champs, avec aperçu en direct.",
+          cta: "Essayer",
+          image: "/projects/portfolio-builder.png",
+          alt: "Interface du générateur de portfolio avec champs et aperçu en direct",
+          url: "/portfolio-builder",
+        },
+        {
+          name: "Assistant IA pour Formulaires",
+          tag: "Automatisation • IA",
+          summary:
+            "Automatise le traitement des formulaires via ChatGPT et des scénarios Make reliés à votre CRM.",
+          cta: "Voir la démo",
+          image: "/projects/ai-form-assistant.png",
+          alt: "Schéma d’assistant IA reliant un formulaire web à un CRM via l’IA",
+          url: "/ai-form-assistant",
+        },
+      ],
+    },
+
     testimonialsSection: {
       title: "Ce qu’on dit de moi",
       intro:
@@ -378,7 +448,41 @@ const copy = {
         "وكالات تحتاج شريك تطوير موثوقاً",
       ],
     },
-    workSection: { title: "أعمال مختارة" },
+    workSection: {
+      title: "أعمال مختارة",
+      projects: [
+        {
+          name: "موقع Coffee House",
+          tag: "Framer • أعمال صغيرة",
+          summary: "صفحة هبوط عصرية لمقهى مبنية بـ Framer مع نظام حجز مدمج.",
+          cta: "شاهد الديمو",
+          image: "/projects/coffee-house.png",
+          alt: "نموذج صفحة هبوط لمقهى بتصميم بسيط على حاسوب محمول مع فن اللاتيه",
+          url: "/coffee-house",
+        },
+        {
+          name: "منشئ البورتفوليو",
+          tag: "React • Tailwind",
+          summary:
+            "أنشئ صفحة تعريفية واحدة أنيقة من حقول بسيطة مع معاينة فورية.",
+          cta: "جرّبه",
+          image: "/projects/portfolio-builder.png",
+          alt: "واجهة منشئ بورتفوليو تعرض حقول إدخال ومعاينة فورية",
+          url: "/portfolio-builder",
+        },
+        {
+          name: "مساعد النماذج بالذكاء الاصطناعي",
+          tag: "الأتمتة • ذكاء اصطناعي",
+          summary:
+            "يؤتمت معالجة النماذج باستخدام ChatGPT وتدفقات Make مع ربط مباشر بنظام الـCRM.",
+          cta: "شاهد الديمو",
+          image: "/projects/ai-form-assistant.png",
+          alt: "مخطط يوضح ربط نموذج ويب بـ CRM عبر الذكاء الاصطناعي",
+          url: "/ai-form-assistant",
+        },
+      ],
+    },
+
     testimonialsSection: {
       title: "ماذا يقولون",
       intro: "آراء وانطباعات أشخاص تعاونت معهم أو تعلّمت معهم عبر الإنترنت.",
@@ -546,34 +650,8 @@ export default function PortfolioPage() {
     }
   }
 
-  const projects = [
-    {
-      name: "Coffee House Website",
-      tag: "Framer • Small Business",
-      summary:
-        "A modern cafe landing page built using Framer with integrated booking system.",
-      cta: "View Demo",
-      image: "/projects/coffee-house.png",
-      url: "/coffee-house",
-    },
-    {
-      name: "Portfolio Builder",
-      tag: "React • Tailwind",
-      summary:
-        "Generate a clean one-page portfolio from a few fields, live preview.",
-      cta: "Try It",
-      image: "/projects/portfolio-builder.png",
-      url: "/portfolio-builder",
-    },
-    {
-      name: "AI Form Assistant",
-      tag: "Automation • AI",
-      summary: "Automates form processing using ChatGPT + Make workflows.",
-      cta: "View Demo",
-      image: "/projects/ai-form-assistant.png",
-      url: "/ai-form-assistant",
-    },
-  ];
+  // Use localized projects so titles, tags, summaries, CTAs, and alts change with language
+  const projects = copy[lang].workSection.projects;
 
   return (
     <>

@@ -1,33 +1,38 @@
 // src/components/ProjectCard.jsx
-export default function ProjectCard({ tag, name, summary, cta, url, image }) {
+export default function ProjectCard({
+  name,
+  tag,
+  summary,
+  cta,
+  image,
+  alt,
+  url,
+}) {
   return (
-    <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950 hover:border-indigo-600 transition">
-      <div className="aspect-video bg-slate-800 rounded-xl grid place-items-center text-3xl overflow-hidden">
-        {image ? (
-          <img
-            src={image}
-            alt={`${name} preview`}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          "🧩"
-        )}
-      </div>
+    <article className="border border-slate-800 rounded-2xl overflow-hidden bg-slate-950/60 hover:bg-slate-900 transition">
+      <a href={url} aria-label={`${name} — ${cta}`}>
+        <img
+          src={image}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-40 object-cover bg-slate-900"
+        />
+      </a>
 
-      <div className="text-xs text-slate-500 mt-3">{tag}</div>
-      <div className="text-lg font-semibold mt-1">{name}</div>
-      <p className="text-slate-400 mt-2 text-sm">{summary}</p>
+      <div className="p-5">
+        <p className="text-xs text-slate-400 mb-1">{tag}</p>
+        <h3 className="text-lg font-semibold">{name}</h3>
+        <p className="text-slate-400 text-sm mt-2">{summary}</p>
 
-      {url && (
         <a
           href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-indigo-400 text-sm font-medium mt-3 inline-block hover:underline"
+          className="inline-block mt-3 text-indigo-300 hover:text-indigo-200 text-sm"
+          aria-label={`${cta}: ${name}`}
         >
           {cta} →
         </a>
-      )}
-    </div>
+      </div>
+    </article>
   );
 }
