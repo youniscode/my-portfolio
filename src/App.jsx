@@ -661,8 +661,8 @@ export default function PortfolioPage() {
               {/* CTA uses header copy */}
               <a
                 href="#contact"
-                className="rounded-xl border border-indigo-500 px-4 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-indigo-300 hover:bg-indigo-600/10 whitespace-nowrap transition-all duration-200"
-                style={{ lineHeight: "1.4em", marginTop: "2px" }}
+                className="rounded-xl border border-indigo-500 px-3 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-sm font-medium text-indigo-300 hover:bg-indigo-600/10 whitespace-nowrap transition-all duration-200"
+                style={{ lineHeight: "1.3em", marginTop: "2px" }}
               >
                 {copy[lang].header.cta}
               </a>
@@ -679,14 +679,14 @@ export default function PortfolioPage() {
               </p>
 
               <h1
-                className={`mt-4 text-5xl font-semibold leading-tight max-w-2xl ${
+                className={`mt-4 text-4xl sm:text-5xl font-semibold leading-snug max-w-2xl ${
                   isRTL ? "text-right md:text-right" : "text-left md:text-left"
                 }`}
                 dangerouslySetInnerHTML={{ __html: copy[lang].hero.title }}
               />
 
               <p
-                className={`mt-4 text-slate-400 leading-relaxed max-w-xl ${
+                className={`mt-4 text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl ${
                   isRTL ? "text-right md:text-right" : "text-left md:text-left"
                 }`}
               >
@@ -711,16 +711,16 @@ export default function PortfolioPage() {
 
             {/* RIGHT ICON */}
             <div className="flex flex-col items-center justify-center text-center mt-10 md:mt-0">
-              <div className="text-7xl">⚡</div>
+              <div className="text-6xl sm:text-7xl">⚡</div>
               <p
-                className={`text-slate-400 mt-3 text-base font-medium ${
+                className={`text-slate-400 mt-3 text-sm sm:text-base font-medium ${
                   isRTL ? "text-right" : "text-center"
                 }`}
               >
                 {copy[lang].heroAside.tagline}
               </p>
               <p
-                className={`text-slate-500 text-sm mt-1 max-w-xs leading-relaxed ${
+                className={`text-slate-500 text-xs sm:text-sm mt-1 max-w-xs leading-relaxed ${
                   isRTL ? "text-right" : "text-center"
                 }`}
               >
@@ -754,7 +754,7 @@ export default function PortfolioPage() {
                   {copy[lang].whoIWorkWith.chips.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60 whitespace-nowrap"
+                      className="rounded-full border border-slate-700/70 px-3 py-1 bg-slate-900/60 whitespace-normal sm:whitespace-nowrap"
                     >
                       {t}
                     </span>
