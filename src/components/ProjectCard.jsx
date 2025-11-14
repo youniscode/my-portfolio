@@ -5,7 +5,7 @@ export default function ProjectCard({
   summary,
   cta,
   image,
-  alt,
+  imageAlt,
   url,
 }) {
   return (
@@ -13,7 +13,7 @@ export default function ProjectCard({
       <a href={url} aria-label={`${name} — ${cta}`}>
         <img
           src={image}
-          alt={alt}
+          alt={imageAlt || name}
           loading="lazy"
           decoding="async"
           className="w-full h-40 object-cover bg-slate-900"

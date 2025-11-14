@@ -29,7 +29,7 @@ const copy = {
     },
 
     heroAside: {
-      tagline: "Fast. Reliable. Smart.",
+      tagline: "Fast. Reliable. Smart",
       blurb:
         "Websites + automations for small businesses, creators, and agencies.",
     },
@@ -105,31 +105,34 @@ const copy = {
           name: "Coffee House Website",
           tag: "Framer • Small Business",
           summary:
-            "A modern café landing page built in Framer with an integrated booking module.",
+            "A modern café landing page built in Framer with online booking and a warm, minimalist layout.",
           cta: "View Demo",
           image: "/projects/coffee-house.png",
-          alt: "Minimal coffee house landing page mockup on a laptop with latte art",
           url: "/coffee-house",
+          imageAlt:
+            "Minimal coffee shop landing page with latte art hero section",
         },
         {
           name: "Portfolio Builder",
           tag: "React • Tailwind",
           summary:
-            "Generate a clean one-page portfolio from a few fields, with a live preview.",
+            "Generate a clean one-page portfolio from a few fields, with live preview and a responsive layout.",
           cta: "Try It",
           image: "/projects/portfolio-builder.png",
-          alt: "Portfolio builder interface showing form fields and live preview",
           url: "/portfolio-builder",
+          imageAlt:
+            "Portfolio builder interface showing a live preview of a developer profile",
         },
         {
           name: "AI Form Assistant",
           tag: "Automation • AI",
           summary:
-            "Automates form processing using ChatGPT with Make workflows piping to your CRM.",
+            "Automates form submissions into structured, AI-tagged leads routed to your email or CRM via Make workflows.",
           cta: "View Demo",
           image: "/projects/ai-form-assistant.png",
-          alt: "AI form assistant diagram connecting a web form to CRM via AI",
           url: "/ai-form-assistant",
+          imageAlt:
+            "AI workflow visual connecting a web form to CRM and email tools",
         },
       ],
     },
@@ -160,27 +163,28 @@ const copy = {
     services: [
       {
         title: "Launch-ready websites",
-        desc: "Custom, responsive sites and landing pages—mobile-first and conversion-focused.",
+        desc: "Custom, responsive sites and landing pages designed to look great on mobile and turn visitors into leads.",
         icon: "/icons/lightning.svg",
-        iconAlt: "Lightning icon for fast website delivery",
+        iconAlt: "Lightning icon representing fast, launch-ready websites",
       },
       {
         title: "AI lead handling & automation",
-        desc: "Turn form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
+        desc: "Turn contact form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
         icon: "/icons/brain-ai.svg",
-        iconAlt: "AI brain icon for automations",
+        iconAlt: "AI brain icon representing automated lead handling",
       },
       {
         title: "Web apps & client portals",
-        desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs.",
+        desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs so your clients can log in and self-serve.",
         icon: "/icons/window-dashboard.svg",
-        iconAlt: "Dashboard icon for client portals",
+        iconAlt:
+          "Dashboard window icon representing web apps and client portals",
       },
       {
         title: "Integrations & tech glue",
-        desc: "Connect your site to Stripe, Notion, Airtable, or Make/Zapier so everything works together.",
+        desc: "Connect your site with tools like Stripe, Notion, Airtable, or Make/Zapier so everything works together instead of in silos.",
         icon: "/icons/nodes.svg",
-        iconAlt: "Cog icon for integrations",
+        iconAlt: "Connected nodes icon representing integrations between tools",
       },
     ],
 
@@ -214,7 +218,7 @@ const copy = {
     },
 
     heroAside: {
-      tagline: "Rapide. Fiable. Intelligent.",
+      tagline: "Rapide. Fiable. Intelligent",
       blurb: "Sites web + automatisations pour TPE/PME, créateurs et agences.",
     },
 
@@ -290,31 +294,34 @@ const copy = {
           name: "Site Coffee House",
           tag: "Framer • Petite entreprise",
           summary:
-            "Landing page de café moderne réalisée avec Framer et module de réservation intégré.",
+            "Landing page moderne pour un café, créée dans Framer avec réservation en ligne et design minimaliste chaleureux.",
           cta: "Voir la démo",
           image: "/projects/coffee-house.png",
-          alt: "Maquette d’une landing page de café minimaliste sur un laptop avec latte art",
           url: "/coffee-house",
+          imageAlt:
+            "Page d’accueil minimaliste pour un coffee shop avec visuel de latte art",
         },
         {
-          name: "Générateur de Portfolio",
+          name: "Générateur de portfolio",
           tag: "React • Tailwind",
           summary:
-            "Créez un portfolio une page propre à partir de quelques champs, avec aperçu en direct.",
+            "Générer un portfolio une-page propre à partir de quelques champs, avec aperçu en direct et mise en page responsive.",
           cta: "Essayer",
           image: "/projects/portfolio-builder.png",
-          alt: "Interface du générateur de portfolio avec champs et aperçu en direct",
           url: "/portfolio-builder",
+          imageAlt:
+            "Interface d’un générateur de portfolio affichant l’aperçu d’un profil développeur",
         },
         {
-          name: "Assistant IA pour Formulaires",
+          name: "Assistant IA pour formulaires",
           tag: "Automatisation • IA",
           summary:
-            "Automatise le traitement des formulaires via ChatGPT et des scénarios Make reliés à votre CRM.",
+            "Automatise les soumissions de formulaires en leads structurés, tagués par l’IA et envoyés vers votre email ou votre CRM via Make.",
           cta: "Voir la démo",
           image: "/projects/ai-form-assistant.png",
-          alt: "Schéma d’assistant IA reliant un formulaire web à un CRM via l’IA",
           url: "/ai-form-assistant",
+          imageAlt:
+            "Visuel de flux IA reliant un formulaire web à un CRM et des outils email",
         },
       ],
     },
@@ -345,27 +352,31 @@ const copy = {
     services: [
       {
         title: "Sites web prêts à lancer",
-        desc: "Sites vitrines et landing pages responsives, optimisés mobile et orientés conversion.",
+        desc: "Sites vitrines et landing pages responsives, pensés mobile et orientés conversion.",
         icon: "/icons/lightning.svg",
-        iconAlt: "Icône éclair pour sites rapides",
+        iconAlt:
+          "Icône d’éclair représentant des sites web rapides et prêts à lancer",
       },
       {
         title: "Traitement des leads & automatisation IA",
-        desc: "Transforme formulaires et emails en leads structurés, tagués par l’IA et routés vers votre email, CRM ou Slack.",
+        desc: "Transformer les formulaires et emails en leads structurés, tagués par l’IA et envoyés vers votre email, CRM ou Slack.",
         icon: "/icons/brain-ai.svg",
-        iconAlt: "Icône éclair pour sites rapides",
+        iconAlt:
+          "Icône de cerveau IA représentant l’automatisation intelligente des leads",
       },
       {
         title: "Applications web & espaces clients",
-        desc: "Applications web légères, tableaux de bord ou portails clients avec React et APIs modernes.",
+        desc: "Applications web légères, tableaux de bord et portails clients avec React et des APIs modernes.",
         icon: "/icons/window-dashboard.svg",
-        iconAlt: "Icône éclair pour sites rapides",
+        iconAlt:
+          "Icône de fenêtre de tableau de bord représentant les applications web et portails clients",
       },
       {
         title: "Intégrations & connecteurs",
-        desc: "Connectez votre site à Stripe, Notion, Airtable, Make/Zapier pour un écosystème fluide.",
+        desc: "Relier votre site à Stripe, Notion, Airtable, Make/Zapier, pour que vos outils travaillent ensemble.",
         icon: "/icons/nodes.svg",
-        iconAlt: "Icône éclair pour sites rapides",
+        iconAlt:
+          "Icône de nœuds connectés représentant les intégrations entre outils",
       },
     ],
 
@@ -399,7 +410,7 @@ const copy = {
     },
 
     heroAside: {
-      tagline: "سريع. موثوق. ذكي.",
+      tagline: "سريع. موثوق. ذكي",
       blurb: "مواقع وأتمتة للشركات الصغيرة والمبدعين والوكالات.",
     },
 
@@ -471,32 +482,34 @@ const copy = {
       projects: [
         {
           name: "موقع Coffee House",
-          tag: "Framer • أعمال صغيرة",
-          summary: "صفحة هبوط عصرية لمقهى مبنية بـ Framer مع نظام حجز مدمج.",
+          tag: "Framer • مشروع صغير",
+          summary:
+            "صفحة هبوط عصرية لمقهى، مبنية في Framer مع حجز إلكتروني وتصميم دافئ وبسيط.",
           cta: "شاهد الديمو",
           image: "/projects/coffee-house.png",
-          alt: "نموذج صفحة هبوط لمقهى بتصميم بسيط على حاسوب محمول مع فن اللاتيه",
           url: "/coffee-house",
+          imageAlt: "صفحة هبوط لمقهى بتصميم بسيط وصورة لاتيه في الجزء العلوي",
         },
         {
-          name: "منشئ البورتفوليو",
+          name: "منشئ ملفات التعريف",
           tag: "React • Tailwind",
           summary:
-            "أنشئ صفحة تعريفية واحدة أنيقة من حقول بسيطة مع معاينة فورية.",
+            "إنشاء صفحة تعريف شخصية (بورتفوليو) من عدد قليل من الحقول مع معاينة مباشرة وتصميم متجاوب.",
           cta: "جرّبه",
           image: "/projects/portfolio-builder.png",
-          alt: "واجهة منشئ بورتفوليو تعرض حقول إدخال ومعاينة فورية",
           url: "/portfolio-builder",
+          imageAlt: "واجهة أداة إنشاء بورتفوليو تعرض معاينة لملف مطوّر ويب",
         },
         {
           name: "مساعد النماذج بالذكاء الاصطناعي",
-          tag: "الأتمتة • ذكاء اصطناعي",
+          tag: "أتمتة • ذكاء اصطناعي",
           summary:
-            "يؤتمت معالجة النماذج باستخدام ChatGPT وتدفقات Make مع ربط مباشر بنظام الـCRM.",
+            "يحوّل إرسال النماذج إلى عملاء محتملين منظمين ومصنّفين بالذكاء الاصطناعي، وموجّهين إلى بريدك أو نظام الـCRM عبر Make.",
           cta: "شاهد الديمو",
           image: "/projects/ai-form-assistant.png",
-          alt: "مخطط يوضح ربط نموذج ويب بـ CRM عبر الذكاء الاصطناعي",
           url: "/ai-form-assistant",
+          imageAlt:
+            "مخطط تدفّق يوضّح ربط نموذج ويب مع CRM وأدوات البريد عبر الذكاء الاصطناعي",
         },
       ],
     },
@@ -526,27 +539,28 @@ const copy = {
     services: [
       {
         title: "مواقع جاهزة للإطلاق",
-        desc: "مواقع وصفحات هبوط متجاوبة، مُحسّنة للجوال وتركّز على التحويل.",
+        desc: "مواقع وصفحات هبوط متجاوبة، تظهر بشكل رائع على الهاتف وتركّز على تحويل الزوار إلى عملاء.",
         icon: "/icons/lightning.svg",
-        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
+        iconAlt: "أيقونة برق تُمثّل مواقع سريعة وجاهزة للإطلاق",
       },
       {
         title: "إدارة العملاء والأتمتة بالذكاء الاصطناعي",
-        desc: "تحويل رسائل النماذج والبريد إلى عملاء محتملين منظّمين ومصنّفين بالذكاء الاصطناعي وموجّهين إلى بريدك أو CRM.",
+        desc: "تحويل رسائل النماذج والبريد المزدحم إلى عملاء محتملين منظمين ومصنّفين بالذكاء الاصطناعي وموجّهين إلى بريدك أو نظام الـCRM.",
         icon: "/icons/brain-ai.svg",
-        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
+        iconAlt: "أيقونة دماغ تمثّل الأتمتة الذكية لإدارة العملاء والـ leads",
       },
       {
         title: "تطبيقات ويب ولوحات تحكم",
-        desc: "تطبيقات ويب خفيفة ولوحات تحكم وبوابات عملاء بـ React وواجهات حديثة.",
+        desc: "تطبيقات ويب خفيفة، ولوحات تحكم أو بوابات للعملاء مبنية بـ React وواجهات برمجة حديثة.",
         icon: "/icons/window-dashboard.svg",
-        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
+        iconAlt:
+          "أيقونة نافذة لوحة تحكّم تمثّل التطبيقات والبوابات الإلكترونية",
       },
       {
         title: "الربط بين الأدوات والأنظمة",
-        desc: "ربط موقعك بـ Stripe وNotion وAirtable وMake/Zapier ليعمل كل شيء بانسجام.",
+        desc: "ربط موقعك بخدمات مثل Stripe وNotion وAirtable وMake/Zapier حتى تعمل أدواتك معًا بسلاسة.",
         icon: "/icons/nodes.svg",
-        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
+        iconAlt: "أيقونة عقد متصلة تمثّل الربط بين الأدوات والأنظمة المختلفة",
       },
     ],
 
@@ -589,13 +603,10 @@ export default function PortfolioPage() {
 
   function setSEO(seo, lang) {
     if (!seo) return;
-    // <title>
     document.title = seo.title;
 
-    // <meta name="description">
     upsertMeta('meta[name="description"]', "content", seo.description);
 
-    // Open Graph
     upsertMeta('meta[property="og:title"]', "content", seo.title);
     upsertMeta('meta[property="og:description"]', "content", seo.description);
     upsertMeta('meta[property="og:type"]', "content", "website");
@@ -607,20 +618,17 @@ export default function PortfolioPage() {
     upsertMeta('meta[property="og:image"]', "content", seo.ogImage);
     upsertMeta('meta[property="og:url"]', "content", window.location.href);
 
-    // Twitter
     upsertMeta('meta[name="twitter:card"]', "content", "summary_large_image");
     upsertMeta('meta[name="twitter:title"]', "content", seo.title);
     upsertMeta('meta[name="twitter:description"]', "content", seo.description);
     upsertMeta('meta[name="twitter:image"]', "content", seo.ogImage);
 
-    // Canonical
     let link = document.head.querySelector('link[rel="canonical"]');
     if (!link) {
       link = document.createElement("link");
       link.setAttribute("rel", "canonical");
       document.head.appendChild(link);
     }
-    // canonical WITHOUT ?lang= to consolidate signals
     link.setAttribute("href", `${location.origin}${location.pathname}`);
   }
 
@@ -643,6 +651,7 @@ export default function PortfolioPage() {
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
     localStorage.setItem("lang", lang);
   }, [lang]);
+
   // Sync SEO tags with current language
   useEffect(() => {
     const seo = copy[lang]?.seo;
@@ -1233,7 +1242,7 @@ export default function PortfolioPage() {
             <div className="text-center sm:text-left">
               <span>© {new Date().getFullYear()} Younis Haitham.</span>{" "}
               <span className="text-slate-600">
-                Made by{" "}
+                {copy[lang].footer.madeBy}{" "}
                 <span className="text-slate-300 font-medium">JonasCode ⚡</span>
               </span>
             </div>
