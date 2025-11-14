@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ProjectCard from "./components/ProjectCard.jsx";
 import Logo from "./assets/Logo.PNG";
+import Portrait from "./assets/portrait.jpg";
 
 const copy = {
   en: {
@@ -1087,7 +1088,24 @@ export default function PortfolioPage() {
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 flex flex-col items-center md:items-start">
+              {/* Portrait */}
+              <img
+                src={Portrait}
+                alt="Portrait of the site owner"
+                className="
+    w-40 h-48 object-cover rounded-xl
+    border border-slate-700
+    shadow-[0_0_18px_rgba(99,102,241,0.25)]
+    hover:shadow-[0_0_28px_rgba(99,102,241,0.45)]
+    transition-all duration-300
+    mb-4
+  "
+                loading="lazy"
+                decoding="async"
+              />
+
+              {/* Existing cards */}
               <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
                 <div className="font-semibold">Languages</div>
                 <p className="text-slate-400 text-sm mt-1">
@@ -1110,6 +1128,7 @@ export default function PortfolioPage() {
                   startups who need results fast.
                 </p>
               </div>
+
               <div className="border border-slate-800 rounded-2xl p-5 bg-slate-950">
                 <div className="font-semibold">Beyond Code</div>
                 <p className="text-slate-400 text-sm mt-1">
