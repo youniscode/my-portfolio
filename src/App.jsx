@@ -160,21 +160,30 @@ const copy = {
     services: [
       {
         title: "Launch-ready websites",
-        desc: "Custom, responsive sites and landing pages designed to look great on mobile and turn visitors into leads.",
+        desc: "Custom, responsive sites and landing pages—mobile-first and conversion-focused.",
+        icon: null,
+        iconAlt: "Website launch icon",
       },
       {
         title: "AI lead handling & automation",
-        desc: "Turn contact form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
+        desc: "Turn form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
+        icon: null,
+        iconAlt: "Automation and AI icon",
       },
       {
         title: "Web apps & client portals",
-        desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs so your clients can log in and self-serve.",
+        desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs.",
+        icon: null,
+        iconAlt: "Client portal dashboard icon",
       },
       {
         title: "Integrations & tech glue",
-        desc: "Connect your site with tools like Stripe, Notion, Airtable, or Make/Zapier so everything works together instead of in silos.",
+        desc: "Connect your site to Stripe, Notion, Airtable, or Make/Zapier so everything works together.",
+        icon: null,
+        iconAlt: "Integration nodes icon",
       },
     ],
+
     footer: {
       madeBy: "Made by",
     },
@@ -336,21 +345,30 @@ const copy = {
     services: [
       {
         title: "Sites web prêts à lancer",
-        desc: "Sites vitrines et landing pages responsives, pensés mobile et orientés conversion.",
+        desc: "Sites vitrines et landing pages responsives, optimisés mobile et orientés conversion.",
+        icon: null,
+        iconAlt: "Icône de lancement de site",
       },
       {
         title: "Traitement des leads & automatisation IA",
-        desc: "Transformer les formulaires et emails en leads structurés, tagués par l’IA et envoyés vers votre email, CRM ou Slack.",
+        desc: "Transforme formulaires et emails en leads structurés, tagués par l’IA et routés vers votre email, CRM ou Slack.",
+        icon: null,
+        iconAlt: "Icône d’automatisation et IA",
       },
       {
         title: "Applications web & espaces clients",
-        desc: "Applications web légères, tableaux de bord et portails clients avec React et des APIs modernes.",
+        desc: "Applications web légères, tableaux de bord ou portails clients avec React et APIs modernes.",
+        icon: null,
+        iconAlt: "Icône de portail client",
       },
       {
         title: "Intégrations & connecteurs",
-        desc: "Relier votre site à Stripe, Notion, Airtable, Make/Zapier, pour que vos outils travaillent ensemble.",
+        desc: "Connectez votre site à Stripe, Notion, Airtable, Make/Zapier pour un écosystème fluide.",
+        icon: null,
+        iconAlt: "Icône d’intégrations",
       },
     ],
+
     footer: {
       madeBy: "Réalisé par",
     },
@@ -508,21 +526,30 @@ const copy = {
     services: [
       {
         title: "مواقع جاهزة للإطلاق",
-        desc: "مواقع وصفحات هبوط متجاوبة، تظهر بشكل رائع على الهاتف وتركّز على تحويل الزوار إلى عملاء.",
+        desc: "مواقع وصفحات هبوط متجاوبة، مُحسّنة للجوال وتركّز على التحويل.",
+        icon: null,
+        iconAlt: "أيقونة إطلاق موقع",
       },
       {
         title: "إدارة العملاء والأتمتة بالذكاء الاصطناعي",
-        desc: "تحويل رسائل النماذج والبريد المزدحم إلى عملاء محتملين منظمين ومصنفين بالذكاء الاصطناعي وموجّهين إلى بريدك أو نظام الـCRM.",
+        desc: "تحويل رسائل النماذج والبريد إلى عملاء محتملين منظّمين ومصنّفين بالذكاء الاصطناعي وموجّهين إلى بريدك أو CRM.",
+        icon: null,
+        iconAlt: "أيقونة أتمتة وذكاء اصطناعي",
       },
       {
         title: "تطبيقات ويب ولوحات تحكم",
-        desc: "تطبيقات ويب خفيفة، ولوحات تحكم أو بوابات للعملاء مبنية بـ React وواجهات برمجة حديثة.",
+        desc: "تطبيقات ويب خفيفة ولوحات تحكم وبوابات عملاء بـ React وواجهات حديثة.",
+        icon: null,
+        iconAlt: "أيقونة بوابة عملاء",
       },
       {
         title: "الربط بين الأدوات والأنظمة",
-        desc: "ربط موقعك بخدمات مثل Stripe وNotion وAirtable وMake/Zapier حتى تعمل أدواتك معًا بسلاسة.",
+        desc: "ربط موقعك بـ Stripe وNotion وAirtable وMake/Zapier ليعمل كل شيء بانسجام.",
+        icon: null,
+        iconAlt: "أيقونة تكامل الأدوات",
       },
     ],
+
     footer: {
       madeBy: "صُنع بواسطة",
     },
@@ -860,15 +887,35 @@ export default function PortfolioPage() {
             className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
             dir={isRTL ? "rtl" : "ltr"}
           >
-            {copy[lang].services.map((s) => (
-              <div
-                key={s.title}
-                className="border border-slate-800 rounded-2xl p-5 hover:bg-slate-900 transition"
-              >
-                <div className="font-semibold text-lg">{s.title}</div>
-                <p className="text-slate-400 mt-2 text-sm">{s.desc}</p>
-              </div>
-            ))}
+            {copy[lang].services.map((s, idx) => {
+              const titleId = `svc-${idx}-title`;
+              return (
+                <article
+                  key={s.title}
+                  role="article"
+                  aria-labelledby={titleId}
+                  className="border border-slate-800 rounded-2xl p-5 hover:bg-slate-900 transition"
+                >
+                  <div className="flex items-start gap-3">
+                    {s.icon && (
+                      <img
+                        src={s.icon}
+                        alt={s.iconAlt}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-6 w-6 mt-1 shrink-0"
+                      />
+                    )}
+                    <div>
+                      <h3 id={titleId} className="font-semibold text-lg">
+                        {s.title}
+                      </h3>
+                      <p className="text-slate-400 mt-2 text-sm">{s.desc}</p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 
