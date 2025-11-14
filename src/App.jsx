@@ -161,26 +161,26 @@ const copy = {
       {
         title: "Launch-ready websites",
         desc: "Custom, responsive sites and landing pages—mobile-first and conversion-focused.",
-        icon: null,
-        iconAlt: "Website launch icon",
+        icon: "/icons/lightning.svg",
+        iconAlt: "Lightning icon for fast website delivery",
       },
       {
         title: "AI lead handling & automation",
         desc: "Turn form messages and inbox chaos into structured, AI-tagged leads routed to your email, CRM, or Slack.",
-        icon: null,
-        iconAlt: "Automation and AI icon",
+        icon: "/icons/brain-ai.svg",
+        iconAlt: "AI brain icon for automations",
       },
       {
         title: "Web apps & client portals",
         desc: "Lightweight web apps, dashboards, or client portals built with React and modern APIs.",
-        icon: null,
-        iconAlt: "Client portal dashboard icon",
+        icon: "/icons/window-dashboard.svg",
+        iconAlt: "Dashboard icon for client portals",
       },
       {
         title: "Integrations & tech glue",
         desc: "Connect your site to Stripe, Notion, Airtable, or Make/Zapier so everything works together.",
-        icon: null,
-        iconAlt: "Integration nodes icon",
+        icon: "/icons/nodes.svg",
+        iconAlt: "Cog icon for integrations",
       },
     ],
 
@@ -346,26 +346,26 @@ const copy = {
       {
         title: "Sites web prêts à lancer",
         desc: "Sites vitrines et landing pages responsives, optimisés mobile et orientés conversion.",
-        icon: null,
-        iconAlt: "Icône de lancement de site",
+        icon: "/icons/lightning.svg",
+        iconAlt: "Icône éclair pour sites rapides",
       },
       {
         title: "Traitement des leads & automatisation IA",
         desc: "Transforme formulaires et emails en leads structurés, tagués par l’IA et routés vers votre email, CRM ou Slack.",
-        icon: null,
-        iconAlt: "Icône d’automatisation et IA",
+        icon: "/icons/brain-ai.svg",
+        iconAlt: "Icône éclair pour sites rapides",
       },
       {
         title: "Applications web & espaces clients",
         desc: "Applications web légères, tableaux de bord ou portails clients avec React et APIs modernes.",
-        icon: null,
-        iconAlt: "Icône de portail client",
+        icon: "/icons/window-dashboard.svg",
+        iconAlt: "Icône éclair pour sites rapides",
       },
       {
         title: "Intégrations & connecteurs",
         desc: "Connectez votre site à Stripe, Notion, Airtable, Make/Zapier pour un écosystème fluide.",
-        icon: null,
-        iconAlt: "Icône d’intégrations",
+        icon: "/icons/nodes.svg",
+        iconAlt: "Icône éclair pour sites rapides",
       },
     ],
 
@@ -527,26 +527,26 @@ const copy = {
       {
         title: "مواقع جاهزة للإطلاق",
         desc: "مواقع وصفحات هبوط متجاوبة، مُحسّنة للجوال وتركّز على التحويل.",
-        icon: null,
-        iconAlt: "أيقونة إطلاق موقع",
+        icon: "/icons/lightning.svg",
+        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
       },
       {
         title: "إدارة العملاء والأتمتة بالذكاء الاصطناعي",
         desc: "تحويل رسائل النماذج والبريد إلى عملاء محتملين منظّمين ومصنّفين بالذكاء الاصطناعي وموجّهين إلى بريدك أو CRM.",
-        icon: null,
-        iconAlt: "أيقونة أتمتة وذكاء اصطناعي",
+        icon: "/icons/brain-ai.svg",
+        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
       },
       {
         title: "تطبيقات ويب ولوحات تحكم",
         desc: "تطبيقات ويب خفيفة ولوحات تحكم وبوابات عملاء بـ React وواجهات حديثة.",
-        icon: null,
-        iconAlt: "أيقونة بوابة عملاء",
+        icon: "/icons/window-dashboard.svg",
+        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
       },
       {
         title: "الربط بين الأدوات والأنظمة",
         desc: "ربط موقعك بـ Stripe وNotion وAirtable وMake/Zapier ليعمل كل شيء بانسجام.",
-        icon: null,
-        iconAlt: "أيقونة تكامل الأدوات",
+        icon: "/icons/nodes.svg",
+        iconAlt: "أيقونة برق تشير إلى سرعة تنفيذ المواقع",
       },
     ],
 
@@ -894,24 +894,29 @@ export default function PortfolioPage() {
                   key={s.title}
                   role="article"
                   aria-labelledby={titleId}
-                  className="border border-slate-800 rounded-2xl p-5 hover:bg-slate-900 transition"
+                  className="relative border border-slate-800 rounded-2xl p-5 hover:bg-slate-900 transition group overflow-hidden"
                 >
-                  <div className="flex items-start gap-3">
-                    {s.icon && (
-                      <img
-                        src={s.icon}
-                        alt={s.iconAlt}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-6 w-6 mt-1 shrink-0"
-                      />
-                    )}
-                    <div>
-                      <h3 id={titleId} className="font-semibold text-lg">
-                        {s.title}
-                      </h3>
-                      <p className="text-slate-400 mt-2 text-sm">{s.desc}</p>
-                    </div>
+                  {/* HOVER ICON (top-right or top-left depending on RTL) */}
+                  {s.icon && (
+                    <img
+                      src={s.icon}
+                      alt={s.iconAlt}
+                      className={`absolute top-3 h-7 w-7 opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 
+      ${isRTL ? "left-3" : "right-3"}`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+
+                  {/* TEXT AREA */}
+                  <div className={`${isRTL ? "text-right" : "text-left"}`}>
+                    <h3 id={titleId} className="font-semibold text-lg">
+                      {s.title}
+                    </h3>
+
+                    <p className="text-slate-400 mt-2 text-sm leading-relaxed">
+                      {s.desc}
+                    </p>
                   </div>
                 </article>
               );
